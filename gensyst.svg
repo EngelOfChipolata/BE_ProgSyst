@@ -94,16 +94,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.70000001"
-     inkscape:cx="-142.25933"
+     inkscape:cx="353.21584"
      inkscape:cy="602.86715"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer2"
      showgrid="false"
-     inkscape:window-width="1855"
-     inkscape:window-height="1056"
+     inkscape:window-width="928"
+     inkscape:window-height="1028"
      inkscape:window-x="65"
      inkscape:window-y="24"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -116,6 +116,38 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Calque 2">
+    <ellipse
+       style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="path3522"
+       cx="632.14282"
+       cy="148.79079"
+       rx="110.71429"
+       ry="92.142853" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3524"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
+         id="flowRegion3526"><rect
+           id="rect3528"
+           width="160.00002"
+           height="115.71429"
+           x="582.85712"
+           y="105.21936" /></flowRegion><flowPara
+         id="flowPara3530">Flag id th gest</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3532"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
+         id="flowRegion3534"><rect
+           id="rect3536"
+           width="132.85715"
+           height="50"
+           x="555.71429"
+           y="55.21936" /></flowRegion><flowPara
+         id="flowPara3538">mutex</flowPara></flowRoot>  </g>
   <g
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
