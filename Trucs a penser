@@ -1,0 +1,9 @@
+-Lors d'un abo le thread utilisateur doit créer sa zone réponse dans la pile et passer l'adresse dans la requête d'abo. Si il y a un code d'erreur il doit la libérer.
+
+-Chaque fonctions utilisable par l'utilisateur doit avant tout vérifier si l'id du thread gestionnaire != 0
+
+-Demande d'écriture : id du demandeur existe ? Correspond avec l'id du thread ? id du destinataire existe ?
+
+-Demande de lecture : id du demandeur existe ? Correspond avec l'id du thread ?
+
+-La zone de requête et chaque zone de réponse doivent avoir un flag pour savoir si la requête/réponse a été lue et peut être overwritée
