@@ -108,8 +108,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="499.25143"
-     inkscape:cy="636.33469"
+     inkscape:cx="595.92165"
+     inkscape:cy="836.13036"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -831,7 +831,7 @@
        xml:space="preserve"
        id="flowRoot4552"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(0,32)"><flowRegion
+       transform="translate(-2.5,73.928571)"><flowRegion
          id="flowRegion4554"><rect
            id="rect4556"
            width="132.85715"
@@ -839,7 +839,7 @@
            x="19.285713"
            y="286.64792"
            style="text-align:center;text-anchor:middle" /></flowRegion><flowPara
-         id="flowPara4558">Message, nombre ou code retour</flowPara></flowRoot>    <path
+         id="flowPara4469">Code retour</flowPara></flowRoot>    <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
        d="M 704.99772,350.93364 C 528.18539,254.57009 348.40281,183.88262 152.85176,249.50507"
        id="path4560"
@@ -1126,5 +1126,37 @@
        d="M 190.71429,440.21935 141.42857,387.3622"
        id="path4580"
        inkscape:connector-curvature="0" />
-  </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 19.642857,329.8622 131.785713,0"
+       id="path4471"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 19.285714,353.43363 132.142856,0"
+       id="path4473"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4475"
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;text-anchor:middle;text-align:center;"><flowRegion
+         id="flowRegion4477"><rect
+           id="rect4479"
+           width="97.499992"
+           height="18.928576"
+           x="37.142857"
+           y="309.50507"
+           style="text-anchor:middle;text-align:center;" /></flowRegion><flowPara
+         id="flowPara4481">Message</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4483"
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;text-anchor:middle;text-align:center;"><flowRegion
+         id="flowRegion4485"><rect
+           id="rect4487"
+           width="77.5"
+           height="19.285715"
+           x="46.07143"
+           y="331.64792"
+           style="text-anchor:middle;text-align:center;" /></flowRegion><flowPara
+         id="flowPara4489">Nombre</flowPara></flowRoot>  </g>
 </svg>
