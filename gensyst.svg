@@ -107,9 +107,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="595.92165"
-     inkscape:cy="836.13036"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="86.28999"
+     inkscape:cy="796.95428"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -230,14 +230,14 @@
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 321.78571,46.647896 0,22.142857"
+       d="m 295.78571,46.647896 0,22.142857"
        id="path4969"
        inkscape:connector-curvature="0" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot4971"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       transform="translate(30.285714,14.857143)"><flowRegion
+       transform="translate(14.285714,14.857143)"><flowRegion
          id="flowRegion4973"><rect
            id="rect4975"
            width="94.285713"
@@ -248,14 +248,14 @@
        xml:space="preserve"
        id="flowRoot4979"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       transform="translate(14.285714,12.857143)"><flowRegion
+       transform="translate(-17.714286,12.857143)"><flowRegion
          id="flowRegion4981"><rect
            id="rect4983"
-           width="100.71428"
-           height="20.714289"
+           width="125.71426"
+           height="20.714287"
            x="316.42856"
            y="35.933609" /></flowRegion><flowPara
-         id="flowPara4985">Var. Cond.</flowPara></flowRoot>    <flowRoot
+         id="flowPara4985">Var. Cond. Vide</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot4987"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
@@ -268,14 +268,14 @@
            y="60.933609" /></flowRegion><flowPara
          id="flowPara4993">Zone de requête</flowPara></flowRoot>    <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 295.78571,207.20718 0,-137.547159"
+       d="m 289.78571,207.20718 0,-137.547159"
        id="path4995"
        inkscape:connector-curvature="0" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot4997"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       transform="translate(-1.714286,30.857143)"><flowRegion
+       transform="translate(-3.714286,30.857143)"><flowRegion
          id="flowRegion4999"><rect
            id="rect5001"
            width="82.142845"
@@ -286,7 +286,7 @@
        xml:space="preserve"
        id="flowRoot5005"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       transform="translate(-7.857143,-28.142857)"><flowRegion
+       transform="translate(-7.857143,-8.142857)"><flowRegion
          id="flowRegion5007"><rect
            id="rect5009"
            width="94.28569"
@@ -551,7 +551,7 @@
     <rect
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect3099"
-       width="208.57143"
+       width="219.64285"
        height="170"
        x="493.57144"
        y="510.93362" />
@@ -569,7 +569,7 @@
            style="text-align:center;text-anchor:middle" /></flowRegion><flowPara
          id="flowPara3887">Boite à lettres i</flowPara></flowRoot>    <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 493.57143,528.79077 207.85715,0"
+       d="m 493.57143,528.79077 218.89067,0"
        id="path3889"
        inkscape:connector-curvature="0" />
     <path
@@ -593,15 +593,15 @@
        xml:space="preserve"
        id="flowRoot3901"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
-       transform="translate(80.285714,12.857143)"><flowRegion
+       transform="translate(68.285714,10.857143)"><flowRegion
          id="flowRegion3903"><rect
            id="rect3905"
-           width="89.398514"
-           height="30.30459"
+           width="122.25564"
+           height="20.661709"
            x="518.71332"
            y="498.29352"
            style="text-align:center;text-anchor:middle" /></flowRegion><flowPara
-         id="flowPara3907">Var cond.</flowPara></flowRoot>    <path
+         id="flowPara3907">Var. Cond. Vide</flowPara></flowRoot>    <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="m 582.49397,527.81817 0,152.53303"
        id="path3909"
@@ -620,7 +620,7 @@
            style="text-align:center;text-anchor:middle" /></flowRegion><flowPara
          id="flowPara3917">Message1</flowPara></flowRoot>    <path
        style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 581.98893,575.89363 119.76617,0"
+       d="m 583.12405,591.89363 129.67178,0"
        id="path3919"
        inkscape:connector-curvature="0" />
     <flowRoot
@@ -661,14 +661,14 @@
        xml:space="preserve"
        id="flowRoot4979-5"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       transform="translate(-270.39286,228.46019)"><flowRegion
+       transform="translate(-290.39286,226.46019)"><flowRegion
          id="flowRegion4981-0"><rect
            id="rect4983-4"
-           width="100.71428"
-           height="20.714289"
+           width="124.64284"
+           height="20.714287"
            x="316.42856"
            y="35.933609" /></flowRegion><flowPara
-         id="flowPara4985-5">Var. Cond.</flowPara></flowRoot>    <flowRoot
+         id="flowPara4985-5">Var. Cond. Vide</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot4987-8"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
@@ -736,7 +736,7 @@
        xml:space="preserve"
        id="flowRoot3535"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(2,14)"><flowRegion
+       transform="translate(8,32)"><flowRegion
          id="flowRegion3537"><rect
            id="rect3539"
            width="119.99998"
@@ -747,7 +747,7 @@
        xml:space="preserve"
        id="flowRoot3543"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(6,44)"><flowRegion
+       transform="translate(14,52)"><flowRegion
          id="flowRegion3545"><rect
            id="rect3547"
            width="119.28571"
@@ -756,14 +756,14 @@
            y="550.21936" /></flowRegion><flowPara
          id="flowPara3549">indice lecture</flowPara></flowRoot>    <path
        style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 581.54548,632.36221 119.76617,0"
+       d="m 582.64393,640.36221 129.67178,0"
        id="path3919-9"
        inkscape:connector-curvature="0" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot3566"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(6,72)"><flowRegion
+       transform="translate(16,78)"><flowRegion
          id="flowRegion3568"><rect
            id="rect3570"
            width="118.57143"
@@ -824,14 +824,14 @@
            style="text-align:center;text-anchor:middle" /></flowRegion><flowPara
          id="flowPara3917-8-8-6">Messagem</flowPara></flowRoot>    <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 19.07143,286.36222 132.14285,0"
+       d="m 19.07143,282.36222 132.14285,0"
        id="path4967-7-7"
        inkscape:connector-curvature="0" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot4552"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(-2.5,73.928571)"><flowRegion
+       transform="translate(-2.5,79.928571)"><flowRegion
          id="flowRegion4554"><rect
            id="rect4556"
            width="132.85715"
@@ -978,7 +978,7 @@
        xml:space="preserve"
        id="flowRoot5015-5"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       transform="matrix(0,1,-1,0,475.28643,-213.18326)"><flowRegion
+       transform="matrix(0,1,-1,0,479.28643,-213.18326)"><flowRegion
          id="flowRegion5017-8"><rect
            id="rect5019-8"
            width="92.857132"
@@ -987,14 +987,14 @@
            y="123.07647" /></flowRegion><flowPara
          id="flowPara5021-5">id2(source)</flowPara></flowRoot>    <path
        style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 326.28571,207.9959 0,-95.55308"
+       d="m 334.28571,207.9959 0,-95.55308"
        id="path5013-6-1"
        inkscape:connector-curvature="0" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot5015-5-4"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       transform="matrix(0,1,-1,0,444.00072,-212.79209)"><flowRegion
+       transform="matrix(0,1,-1,0,458.00072,-212.79209)"><flowRegion
          id="flowRegion5017-8-6"><rect
            id="rect5019-8-7"
            width="92.857132"
@@ -1002,8 +1002,8 @@
            x="327.85715"
            y="123.07647" /></flowRegion><flowPara
          id="flowPara5021-5-2">threadid</flowPara></flowRoot>    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 225.71429,88.647919 69.28571,0"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 225.71429,88.647919 64.28571,0"
        id="path4457"
        inkscape:connector-curvature="0" />
     <flowRoot
@@ -1019,14 +1019,14 @@
            y="68.790779" /></flowRegion><flowPara
          id="flowPara4465">Flag</flowPara></flowRoot>    <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 18.785718,308.3622 132.142852,0"
+       d="m 18.785718,320.3622 132.142852,0"
        id="path4967-7-7-0"
        inkscape:connector-curvature="0" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot4979-5-3"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
-       transform="translate(-283.64537,251.44547)"><flowRegion
+       transform="translate(-283.64537,265.44547)"><flowRegion
          id="flowRegion4981-0-4"><rect
            id="rect4983-4-5"
            width="100.71428"
@@ -1128,35 +1128,102 @@
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 19.642857,329.8622 131.785713,0"
+       d="m 19.642857,341.8622 131.785713,0"
        id="path4471"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 19.285714,353.43363 132.142856,0"
+       d="m 19.285714,365.43363 132.142856,0"
        id="path4473"
        inkscape:connector-curvature="0" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot4475"
-       style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;text-anchor:middle;text-align:center;"><flowRegion
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(0,12)"><flowRegion
          id="flowRegion4477"><rect
            id="rect4479"
            width="97.499992"
            height="18.928576"
            x="37.142857"
            y="309.50507"
-           style="text-anchor:middle;text-align:center;" /></flowRegion><flowPara
+           style="text-align:center;text-anchor:middle" /></flowRegion><flowPara
          id="flowPara4481">Message</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot4483"
-       style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;text-anchor:middle;text-align:center;"><flowRegion
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(0,12)"><flowRegion
          id="flowRegion4485"><rect
            id="rect4487"
            width="77.5"
            height="19.285715"
            x="46.07143"
            y="331.64792"
-           style="text-anchor:middle;text-align:center;" /></flowRegion><flowPara
-         id="flowPara4489">Nombre</flowPara></flowRoot>  </g>
+           style="text-align:center;text-anchor:middle" /></flowRegion><flowPara
+         id="flowPara4489">Nombre</flowPara></flowRoot>    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 290.21429,88.291205 130.71428,0"
+       id="path4457-1"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4979-7"
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="translate(-19.931082,32.659753)"><flowRegion
+         id="flowRegion4981-8"><rect
+           id="rect4983-1"
+           width="127.14284"
+           height="20.714287"
+           x="316.42856"
+           y="35.933609" /></flowRegion><flowPara
+         id="flowPara4985-7">Var. Cond. Plein</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 312.28571,207.85303 0,-95.55308"
+       id="path5013-6-1-5"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5015-5-4-9"
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0,1,-1,0,434.13074,-212.38752)"><flowRegion
+         id="flowRegion5017-8-6-0"><rect
+           id="rect5019-8-7-0"
+           width="92.857132"
+           height="18.571436"
+           x="327.85715"
+           y="123.07647" /></flowRegion><flowPara
+         id="flowPara5021-5-2-6">&amp;repi</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 583.49442,554.64792 129.67178,0"
+       id="path3919-2"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3901-1"
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+       transform="translate(63.178293,32.157521)"><flowRegion
+         id="flowRegion3903-5"><rect
+           id="rect3905-0"
+           width="132.61278"
+           height="20.661709"
+           x="518.71332"
+           y="498.29352"
+           style="text-align:center;text-anchor:middle" /></flowRegion><flowPara
+         id="flowPara3907-0">Var Cond. Plein</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 19.714289,303.64792 132.142851,0"
+       id="path4967-7-7-1"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4979-5-6"
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="translate(-293.36356,247.0169)"><flowRegion
+         id="flowRegion4981-0-0"><rect
+           id="rect4983-4-4"
+           width="129.28571"
+           height="19.285715"
+           x="316.42856"
+           y="35.933609" /></flowRegion><flowPara
+         id="flowPara4985-5-0">Var. Cond. Plein</flowPara></flowRoot>  </g>
 </svg>
