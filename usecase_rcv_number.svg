@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="usecase.svg">
+   sodipodi:docname="usecase_rcv_number.svg">
   <defs
      id="defs4">
     <marker
@@ -116,7 +116,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -165,7 +165,7 @@
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect4145"
        width="532.85712"
-       height="360"
+       height="289.28571"
        x="129.28572"
        y="38.790775" />
     <flowRoot
@@ -195,14 +195,14 @@
        xml:space="preserve"
        id="flowRoot4159"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="matrix(0.99366836,0.112353,-0.112353,0.99366836,-17.672095,3.7085944)"><flowRegion
+       transform="matrix(0.99366836,0.112353,-0.112353,0.99366836,-31.672095,3.7085944)"><flowRegion
          id="flowRegion4161"><rect
            id="rect4163"
-           width="239.99998"
-           height="50.714283"
+           width="250.4182"
+           height="53.849327"
            x="135"
            y="63.076492" /></flowRegion><flowPara
-         id="flowPara4165">Demande la reception du plus ancien message non lu</flowPara></flowRoot>    <flowRoot
+         id="flowPara4165">Demande le nombre de messages non lu dans sa boite</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot4167"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -230,15 +230,15 @@
        xml:space="preserve"
        id="flowRoot4179"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(-4,12)"><flowRegion
+       transform="translate(-12,-6)"><flowRegion
          id="flowRegion4181"><rect
            id="rect4183"
-           width="142.85715"
-           height="59.999989"
+           width="155.71429"
+           height="79.999985"
            x="261.42856"
            y="230.21935"
            style="text-align:center;text-anchor:middle" /></flowRegion><flowPara
-         id="flowPara4185">Retourne le message</flowPara></flowRoot>    <path
+         id="flowPara4185">Retourne le nombre de messages ou un code erreur</flowPara></flowRoot>    <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 252.14286,241.64792 95.714286,125.93363"
        id="path4187"
@@ -290,40 +290,5 @@
            x="367.14285"
            y="118.07649"
            style="text-align:center;text-anchor:middle" /></flowRegion><flowPara
-         id="flowPara4203">Récupère le premier message de la boîte j</flowPara></flowRoot>    <ellipse
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="path4189-5"
-       cx="508.40771"
-       cy="355.1452"
-       rx="67.85714"
-       ry="42.142857" />
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4191-2"
-       style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(-94.877979,242.21158)"><flowRegion
-         id="flowRegion4193-9"><rect
-           id="rect4195-3"
-           width="104.2857"
-           height="71.428574"
-           x="550.71429"
-           y="90.219345"
-           style="text-align:center;text-anchor:middle" /></flowRegion><flowPara
-         id="flowPara4197-5">Bloque le thread</flowPara></flowRoot>    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#marker4295)"
-       d="m 403.27486,288.7079 50.12501,40.73177"
-       id="path4979-2"
-       inkscape:connector-curvature="0" />
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot5041-1"
-       style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(-208.1637,162.21157)"><flowRegion
-         id="flowRegion5043-7"><rect
-           id="rect5045-8"
-           width="154.28572"
-           height="74.285721"
-           x="497.14285"
-           y="155.21935" /></flowRegion><flowPara
-         id="flowPara5047-6">&lt;&lt;extend&gt;&gt; {if aucun message pour j}</flowPara></flowRoot>  </g>
+         id="flowPara4203">Consulte le nombre de messages non lu de j</flowPara></flowRoot>  </g>
 </svg>

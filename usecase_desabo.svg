@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="usecase.svg">
+   sodipodi:docname="usecase_desabo.svg">
   <defs
      id="defs4">
     <marker
@@ -98,7 +98,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="349.1855"
+     inkscape:cx="412.32746"
      inkscape:cy="848.70169"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -116,7 +116,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -195,14 +195,14 @@
        xml:space="preserve"
        id="flowRoot4159"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="matrix(0.99366836,0.112353,-0.112353,0.99366836,-17.672095,3.7085944)"><flowRegion
+       transform="matrix(0.99366836,0.112353,-0.112353,0.99366836,32.327905,9.7085944)"><flowRegion
          id="flowRegion4161"><rect
            id="rect4163"
            width="239.99998"
            height="50.714283"
            x="135"
            y="63.076492" /></flowRegion><flowPara
-         id="flowPara4165">Demande la reception du plus ancien message non lu</flowPara></flowRoot>    <flowRoot
+         id="flowPara4165">Demande son désabonnement</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot4167"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -262,7 +262,7 @@
            x="550.71429"
            y="90.219345"
            style="text-align:center;text-anchor:middle" /></flowRegion><flowPara
-         id="flowPara4197">Lance un thread de lecture</flowPara></flowRoot>    <path
+         id="flowPara4197">Libère sa boîte à lettres</flowPara></flowRoot>    <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;marker-start:url(#Arrow1Lstart)"
        d="m 468.57143,192.36221 65,52.85714"
        id="path4979"
@@ -282,7 +282,7 @@
        xml:space="preserve"
        id="flowRoot4197"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(-14,-4)"><flowRegion
+       transform="translate(-14,14)"><flowRegion
          id="flowRegion4199"><rect
            id="rect4201"
            width="112.85715"
@@ -290,7 +290,7 @@
            x="367.14285"
            y="118.07649"
            style="text-align:center;text-anchor:middle" /></flowRegion><flowPara
-         id="flowPara4203">Récupère le premier message de la boîte j</flowPara></flowRoot>    <ellipse
+         id="flowPara4203">Désabonne le thread j</flowPara></flowRoot>    <ellipse
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path4189-5"
        cx="508.40771"
@@ -301,7 +301,7 @@
        xml:space="preserve"
        id="flowRoot4191-2"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(-94.877979,242.21158)"><flowRegion
+       transform="translate(-94.877979,236.21158)"><flowRegion
          id="flowRegion4193-9"><rect
            id="rect4195-3"
            width="104.2857"
@@ -309,7 +309,7 @@
            x="550.71429"
            y="90.219345"
            style="text-align:center;text-anchor:middle" /></flowRegion><flowPara
-         id="flowPara4197-5">Bloque le thread</flowPara></flowRoot>    <path
+         id="flowPara4197-5">Libère sa zone de réponse</flowPara></flowRoot>    <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#marker4295)"
        d="m 403.27486,288.7079 50.12501,40.73177"
        id="path4979-2"
@@ -318,12 +318,12 @@
        xml:space="preserve"
        id="flowRoot5041-1"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(-208.1637,162.21157)"><flowRegion
+       transform="translate(-168.1637,160.21157)"><flowRegion
          id="flowRegion5043-7"><rect
            id="rect5045-8"
            width="154.28572"
            height="74.285721"
            x="497.14285"
            y="155.21935" /></flowRegion><flowPara
-         id="flowPara5047-6">&lt;&lt;extend&gt;&gt; {if aucun message pour j}</flowPara></flowRoot>  </g>
+         id="flowPara5047-6">&lt;&lt;extend&gt;&gt;</flowPara></flowRoot>  </g>
 </svg>
