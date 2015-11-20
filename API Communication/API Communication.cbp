@@ -35,7 +35,19 @@
 		<Unit filename="fonctions.c">
 			<Option compilerVar="CC" />
 		</Unit>
+
+		<Unit filename="gestionnaire.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gestionnaire.h" />
+		<Unit filename="globalvar.h" />
 		<Unit filename="structures.h" />
+		<Unit filename="testeur.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="varglobal.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="varglobal.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
