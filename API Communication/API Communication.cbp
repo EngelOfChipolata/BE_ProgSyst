@@ -35,6 +35,10 @@
 		<Unit filename="fonctions.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="structures.h" />
+		<Unit filename="varglobal.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<debugger />
