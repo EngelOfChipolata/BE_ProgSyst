@@ -3,8 +3,8 @@
 
 #include "structures.h"
 
-requestZone zoneRequete;
+extern requestZone _zoneRequete;
 
-idThreadGest idgest;
+extern idThreadGest _idgest;
 
 #endif // VARGLOBAL_H_INCLUDED
