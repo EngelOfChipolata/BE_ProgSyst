@@ -39,6 +39,7 @@
 		<Unit filename="fonctions.c">
 			<Option compilerVar="CC" />
 		</Unit>
+
 		<Unit filename="gestionnaire.c">
 			<Option compilerVar="CC" />
 		</Unit>
