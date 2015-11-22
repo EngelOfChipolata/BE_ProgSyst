@@ -3,7 +3,7 @@
 extern int initMsg(int nombrethmax);
 extern int aboMsg(int idabo);
 extern int sendMsg(char * message, int dest_id, int source_id);
-extern int recvMsg(int id, int flag);
+extern int recvMsg(int flag, int id, char ** message);
 extern int desaboMsg(int id);
 extern int finMsg(int force);
 
