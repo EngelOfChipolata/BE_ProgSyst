@@ -60,14 +60,14 @@ int aboMsg(int idabo){
     if (!idgestlaunched()){ /*On teste si le thread gestionnaire est bien lancé*/
         return -1;
     }
-    my_zone_reponse = malloc(sizeof(repZone));
+    my_zone_reponse = calloc(1, sizeof(repZone));
 
     pthread_mutex_lock(&(_zoneRequete.mutexreq)); /*On prend le mutex de la zone de requête*/
     #ifdef DEBUGABO
-    printf("aboMsg a le mutex\n");
+    printf("aboMsg %d a le mutex\n", pthread_self());
     #endif // DEBUGABO
 
-    if(_zoneRequete.flag_req == 1){ /*Si une requête est déjà écrite*/
+    while(_zoneRequete.flag_req == 1){ /*Si une requête est déjà écrite*/
         #ifdef DEBUGABO
         printf("aboMsg attend\n");
         #endif
@@ -90,10 +90,10 @@ int aboMsg(int idabo){
 
     pthread_mutex_lock(&(my_zone_reponse->mutexrep));
     #ifdef DEBUGABO
-    printf("aboMsg a le mutex de sa réponse\n");
+    printf("aboMsg a le mutex de sa réponse : %d\n", my_zone_reponse);
     #endif // DEBUGABO
 
-    if(my_zone_reponse->flag_rep == 0){/*Si il n'y a pas de réponse on libère le mutex et on attend*/
+    while(my_zone_reponse->flag_rep == 0){/*Si il n'y a pas de réponse on libère le mutex et on attend*/
         pthread_cond_wait(&(my_zone_reponse->var_cond_rep), &(my_zone_reponse->mutexrep));
     }
     coderet = my_zone_reponse->code_err;
@@ -103,6 +103,9 @@ int aboMsg(int idabo){
     pthread_mutex_unlock(&(my_zone_reponse->mutexrep));
     free(my_zone_reponse);
     my_zone_reponse = NULL;
+    #ifdef DEBUGABO
+    printf("aboMsg freeing \n");
+    #endif // DEBUGABO
 
 
     return coderet;
@@ -114,7 +117,7 @@ int sendMsg(char * message, int dest_id, int source_id){
         return -1;
     }
 
-    if(_zoneRequete.flag_req == 1){ /*Si une requête est déjà écrite*/
+    while(_zoneRequete.flag_req == 1){ /*Si une requête est déjà écrite*/
         pthread_cond_wait(&(_zoneRequete.var_cond_req_full), &(_zoneRequete.mutexreq)); /*On attend en libérant le mutex*/
     }
     /*Sinon on écrit la requête d'envoi du message*/
@@ -136,7 +139,7 @@ int recvMsg(int flag, int id, char ** message){
         return -1;
     }
 
-    if(_zoneRequete.flag_req == 1){ /*Si une requête est déjà écrite*/
+    while(_zoneRequete.flag_req == 1){ /*Si une requête est déjà écrite*/
         pthread_cond_wait(&(_zoneRequete.var_cond_req_full), &(_zoneRequete.mutexreq)); /*On attend en libérant le mutex*/
     }
     /*Sinon on écrit la requête de lecture de message*/

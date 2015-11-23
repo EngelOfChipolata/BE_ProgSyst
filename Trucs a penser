@@ -9,3 +9,5 @@
 -La zone de requête et chaque zone de réponse doivent avoir un flag pour savoir si la requête/réponse a été lue et peut être overwritée
 
 - Test performances
+
+-Toujours encadré les wait sur une variable conditionnelle d'un FUCKING WHILE !!!!

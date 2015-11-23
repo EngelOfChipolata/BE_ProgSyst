@@ -1,5 +1,3 @@
-#define _REENTRANT
-
 #include "gestionnaire.h"
 #include "varglobal.h"
 #include "structures.h"
@@ -50,7 +48,7 @@ void* Gestionnaire (void *arg){
         printf("le gestionnaire à le mutex de la requête\n");
         #endif // DEBUGGEST
 
-        if(_zoneRequete.flag_req==0){
+        while(_zoneRequete.flag_req==0){
             #ifdef DEBUGGEST
             printf("Le gestionnaire attend\n");
             #endif // DEBUGGEST
@@ -60,13 +58,13 @@ void* Gestionnaire (void *arg){
         #ifdef DEBUGGEST
         printf("Le gestionnaire est réveillé et va traiter la requête\nLa requête est : %d\n", _zoneRequete.numrequest);
         #endif // DEBUGGEST
-        zone_reponse = _zoneRequete.repzoneaddr; /*On lit et on stocke la zone dans lauelle on doit répondre a cette requête*/
+        zone_reponse = _zoneRequete.repzoneaddr; /*On lit et on stocke la zone dans laquelle on doit répondre a cette requête*/
         switch(_zoneRequete.numrequest){
             case 1: /*abonnement*/
                 #ifdef DEBUGGEST
                 printf("Le gestionnaire va traiter la requête abo\n");
                 #endif // DEBUGGEST
-                if (nbthreadabonne == *nbthreadmax){ /*Si le nombre maximal est atteint on écrit une erreur dans la zone réponse*/
+                if (nbthreadabonne >=*nbthreadmax){ /*Si le nombre maximal est atteint on écrit une erreur dans la zone réponse*/
                     #ifdef DEBUGGEST
                     printf("Plus de place dans l'annuaire\n");
                     #endif // DEBUGGEST
