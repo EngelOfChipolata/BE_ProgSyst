@@ -108,8 +108,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="530.12735"
-     inkscape:cy="763.73295"
+     inkscape:cx="279.09713"
+     inkscape:cy="678.01867"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -643,7 +643,7 @@
        y="240.96524" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 19.035717,263.10808 132.142853,0"
+       d="m 18.321431,280.25094 132.142849,0"
        id="path4967-7"
        inkscape:connector-curvature="0" />
     <flowRoot
@@ -658,17 +658,6 @@
            x="221.42857"
            y="33.790752" /></flowRegion><flowPara
          id="flowPara4977-6">Mutex</flowPara></flowRoot>    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4979-5"
-       style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       transform="translate(-290.39286,226.46019)"><flowRegion
-         id="flowRegion4981-0"><rect
-           id="rect4983-4"
-           width="124.64284"
-           height="20.714287"
-           x="316.42856"
-           y="35.933609" /></flowRegion><flowPara
-         id="flowPara4985-5">Var. Cond. Vide</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot4987-8"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
@@ -769,12 +758,7 @@
            x="428.80975"
            y="572.53973"
            style="text-align:center;text-anchor:middle" /></flowRegion><flowPara
-         id="flowPara3917-8-8-6">Messagem</flowPara></flowRoot>    <path
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 19.07143,282.36222 132.14285,0"
-       id="path4967-7-7"
-       inkscape:connector-curvature="0" />
-    <flowRoot
+         id="flowPara3917-8-8-6">Messagem</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot4552"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"

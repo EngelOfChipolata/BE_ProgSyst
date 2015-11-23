@@ -825,8 +825,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="375.23802"
-     inkscape:cy="513.62397"
+     inkscape:cx="130.27603"
+     inkscape:cy="432.81177"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1438,26 +1438,6 @@
          id="tspan3574"
          x="383.15118"
          y="917.96765" /></text>
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.89308143px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend-1-3-6-5-5-6-9-0-9-3)"
-       d="m 77.222629,919.02207 591.842751,0"
-       id="path4269-7-7-0-2-4-6-2-6-3"
-       inkscape:connector-curvature="0" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="272.85474"
-       y="913.78522"
-       id="text4650-3-38-7-6-0-2-3-1-7"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4765"
-         x="272.85474"
-         y="913.78522">Flag = 0 +</tspan><tspan
-         sodipodi:role="line"
-         id="tspan4767"
-         x="272.85474"
-         y="932.53522">signal &quot;vide&quot;</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.89308143px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend-1-3-6-5-5-6-9-0-9-6)"
        d="m 78.232784,954.3774 591.842746,0"
