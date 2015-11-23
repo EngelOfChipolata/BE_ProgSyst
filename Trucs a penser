@@ -7,3 +7,5 @@
 -Demande de lecture : id du demandeur existe ? Correspond avec l'id du thread ?
 
 -La zone de requête et chaque zone de réponse doivent avoir un flag pour savoir si la requête/réponse a été lue et peut être overwritée
+
+- Test performances
