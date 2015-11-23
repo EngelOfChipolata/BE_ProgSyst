@@ -483,8 +483,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="373.90519"
-     inkscape:cy="554.73083"
+     inkscape:cx="128.9432"
+     inkscape:cy="433.51252"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -502,7 +502,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1072,7 +1072,7 @@
        inkscape:transform-center-y="-560.19098" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
        x="190.61122"
        y="894.16614"
        id="text4650-8-2-3-7-6-2-0-3-5-4-8"
@@ -1080,13 +1080,9 @@
        inkscape:transform-center-x="571.21951"
        inkscape:transform-center-y="-561.64482"><tspan
          sodipodi:role="line"
-         id="tspan19086"
-         x="190.61122"
-         y="894.16614">flag = 0</tspan><tspan
+         id="tspan3512">libère mutex +</tspan><tspan
          sodipodi:role="line"
-         id="tspan19088"
-         x="190.61122"
-         y="912.91614">envoi signal &quot;vide&quot;</tspan></text>
+         id="tspan3514">destruction zone rep</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
