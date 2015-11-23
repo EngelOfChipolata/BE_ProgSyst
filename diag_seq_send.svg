@@ -16,7 +16,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="diag_seq_send.svg">
+   sodipodi:docname="diag_seq_send.svg"
+   inkscape:export-filename="/home/bobby/Documents/BE_ProgSyst/diag_seq_send.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4">
     <linearGradient
@@ -825,7 +828,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="130.27603"
+     inkscape:cx="-53.066658"
      inkscape:cy="432.81177"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"

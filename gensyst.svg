@@ -14,7 +14,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="gensyst.svg">
+   sodipodi:docname="gensyst.svg"
+   inkscape:export-filename="/home/bobby/Documents/BE_ProgSyst/gensyst.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4">
     <marker
@@ -108,8 +111,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="279.09713"
-     inkscape:cy="678.01867"
+     inkscape:cx="368.60591"
+     inkscape:cy="735.16153"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
