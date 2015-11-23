@@ -9,11 +9,33 @@
 #define DEBUGGEST
 
 
+int findid(Annuaire* annuaire,int tailleannuaire, int id){ /*Fonction qui parcourt l'annuaire et qui renvoie l'index de l'id demandé ou -1 si non trouvé*/
+    int i;
+    for (i =0; i<tailleannuaire; i++){
+        if (annuaire[i].id == id){
+            return i;
+        }
+    }
+    return -1;
+}
+
+void writerepcode(repZone* zone_reponse, int errno){
+    pthread_mutex_lock(&(zone_reponse->mutexrep));
+    zone_reponse->code_err = errno;
+    zone_reponse->flag_rep = 1;
+    pthread_cond_signal(&(zone_reponse->var_cond_rep));
+    pthread_mutex_unlock(&(zone_reponse->mutexrep));
+
+}
+
+
 void* Gestionnaire (void *arg){
     int * nbthreadmax = arg;
     int i; /*itérateur des boucles for*/
     Annuaire annuaire[(int)*nbthreadmax]; /*déclaration de l'annuaire*/
     int nbthreadabonne = 0;
+    repZone * zone_reponse;
+
     for (i=0; i < *nbthreadmax; i++){ /*Initialisation de l'annuaire*/
         annuaire[i].id = 0;
     }
@@ -38,33 +60,45 @@ void* Gestionnaire (void *arg){
         #ifdef DEBUGGEST
         printf("Le gestionnaire est réveillé et va traiter la requête\nLa requête est : %d\n", _zoneRequete.numrequest);
         #endif // DEBUGGEST
+        zone_reponse = _zoneRequete.repzoneaddr; /*On lit et on stocke la zone dans lauelle on doit répondre a cette requête*/
         switch(_zoneRequete.numrequest){
             case 1: /*abonnement*/
                 #ifdef DEBUGGEST
                 printf("Le gestionnaire va traiter la requête abo\n");
                 #endif // DEBUGGEST
-                if (nbthreadabonne == *nbthreadmax){
+                if (nbthreadabonne == *nbthreadmax){ /*Si le nombre maximal est atteint on écrit une erreur dans la zone réponse*/
                     #ifdef DEBUGGEST
                     printf("Plus de place dans l'annuaire\n");
                     #endif // DEBUGGEST
-                    /*TODO erreur aucune place libre */
+                    writerepcode(zone_reponse, -3);
+                    break;
+                }
+
+                if(findid(annuaire,*nbthreadmax, _zoneRequete.userid1) != -1){
+                    writerepcode(zone_reponse, -2);
                     break;
                 }
 
                 for(i=0; i<*nbthreadmax; i++){
                     if (annuaire[i].id == 0){
                         if((annuaire[i].bal = malloc(sizeof(BaL)))==NULL){
-                            /*TODO écrire erreur d'allocation de Bal in rep zone*/
+                            writerepcode(zone_reponse, -4);
                         }
                         annuaire[i].id = _zoneRequete.userid1;
                         annuaire[i].idThread = _zoneRequete.id_thread;
                         #ifdef DEBUGGEST
                         printf("J'ai un abo réussi %d\n", _zoneRequete.userid1);
                         #endif // DEBUGGEST
-                        /*TODO stockage de la repzone dans l'annuaire*/
+                        nbthreadabonne++;
+                        writerepcode(zone_reponse, 0);
                         break;
                     }
                 }break;
+
+            case 2: /*envoi de message*/
+                #ifdef DEBUGGEST
+                printf("Le gestionnaire va traiter la requête d'envoi\n");
+                #endif
 
         }
         _zoneRequete.flag_req = 0;

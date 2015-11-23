@@ -14,8 +14,7 @@ typedef struct repzone{
         int nb_msg;
     };
     pthread_mutex_t mutexrep;
-    pthread_cond_t var_cond_rep_full;
-    pthread_cond_t var_cond_rep_empty;
+    pthread_cond_t var_cond_rep;
 } repZone;
 
 typedef struct requestzone{
@@ -47,7 +46,6 @@ typedef struct annuaire{
     int id;
     pthread_t idThread;
     BaL * bal;
-    repZone * rep;
 }Annuaire;
 
 typedef struct idthreadgest{

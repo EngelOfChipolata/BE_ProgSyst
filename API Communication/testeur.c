@@ -17,6 +17,9 @@ void* Ecriture (void * arg)
     int i=0;
     char my_message[20];
     aboMsg(999);
+    aboMsg(888);
+    aboMsg(777);
+    aboMsg(555);
 
 	while(1){
 
