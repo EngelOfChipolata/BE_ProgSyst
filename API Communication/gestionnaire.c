@@ -4,6 +4,7 @@
 #include "pthread.h"
 #include "stdio.h"
 #include "stdlib.h"
+#include "string.h"
 #define DEBUGGEST
 
 
@@ -94,9 +95,46 @@ void* Gestionnaire (void *arg){
                 }break;
 
             case 2: /*envoi de message*/
+                int indexdest;
+                int indexsource;
+                argThreadEcriture * argecriture;
                 #ifdef DEBUGGEST
                 printf("Le gestionnaire va traiter la requête d'envoi\n");
                 #endif
+
+                indexsource = findid(annuaire, *nbthreadmax, _zoneRequete.userid2);
+
+                if (indexsource == -1){
+                    writerepcode(zone_reponse, -2);
+                    break;
+                }
+                if (annuaire[indexsource].idThread != _zoneRequete.id_thread){
+                    writerepcode(zone_reponse, -3);
+                    break;
+                }
+
+                indexdest = findid(annuaire, *nbthreadmax, _zoneRequete.userid1);
+                if (indexdest == -1){
+                    writerepcode(zone_reponse, -4);
+                    break;
+                }
+
+
+                argecriture = calloc(1, sizeof(argThreadEcriture));
+                *argecriture.boitealettres = annuaire[indexdest].bal;
+                strcpy(*argecriture.message, _zoneRequete.msg);
+
+                if (pthread_create(NULL, NULL, Ecriture, argecriture) != 0){ 	/*Création du thread d'écriture*/
+                    writerepcode(zone_reponse, -5);
+                    break;
+                }
+
+
+                break;
+
+                case 3:
+                break;
+            }
 
         }
         _zoneRequete.flag_req = 0;

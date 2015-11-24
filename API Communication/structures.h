@@ -10,7 +10,7 @@ typedef struct repzone{
     int flag_rep;
     int code_err;
     union{
-        char * msg[TAILLEMAX];
+        char msg[TAILLEMAX];
         int nb_msg;
     };
     pthread_mutex_t mutexrep;
@@ -32,7 +32,7 @@ typedef struct requestzone{
 
 
 typedef struct bal{
-    char ** msgs[TAILLEBAL][TAILLEMAX];
+    char msgs[TAILLEBAL][TAILLEMAX];
     int iecriture;
     int ilecture;
     int nb_msg;
@@ -52,6 +52,11 @@ typedef struct idthreadgest{
     pthread_mutex_t mutexgest;
     pthread_t idgest;
 }idThreadGest;
+
+typedef struct argsthreadecriture{
+    BaL * boitealettres;
+    char message[TAILLEMAX];
+} argThreadEcriture;
 
 
 
