@@ -111,7 +111,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="368.60591"
+     inkscape:cx="238.96305"
      inkscape:cy="735.16153"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -1005,34 +1005,10 @@
        d="M 232.43346,566.64373 34.413156,388.07044"
        id="path4550"
        inkscape:connector-curvature="0" />
-    <ellipse
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="path4552"
-       cx="219.64285"
-       cy="477.00507"
-       rx="48.214287"
-       ry="45.357143" />
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4508-5-2"
-       style="font-style:normal;font-weight:normal;font-size:16px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(-170.11928,-22.69711)"><flowRegion
-         id="flowRegion4510-5-6"><rect
-           id="rect4512-7-0"
-           width="78.571434"
-           height="62.142841"
-           x="349.28571"
-           y="468.07648"
-           style="text-align:center;text-anchor:middle" /></flowRegion><flowPara
-         id="flowPara4514-3-5">Thread de réponse</flowPara></flowRoot>    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
-       d="m 265,402.3622 -22.14286,34.28572"
-       id="path4578"
-       inkscape:connector-curvature="0" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
-       d="M 190.71429,440.21935 141.42857,387.3622"
-       id="path4580"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.01938605px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="m 241.38272,342.64137 -89.60733,-8.80402"
+       id="path4578"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"

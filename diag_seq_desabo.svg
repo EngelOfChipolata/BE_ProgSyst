@@ -849,6 +849,36 @@
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
          transform="matrix(-0.8,0,0,-0.8,-10,0)" />
     </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-1-3-6-5-5-6-9-0-4-1"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4278-5-1-3-9-18-1-8-6-3-7"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-1-3-6-5-5-6-9-0-4-1-6"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4278-5-1-3-9-18-1-8-6-3-7-8"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -857,9 +887,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="261.3587"
-     inkscape:cy="419.23126"
+     inkscape:zoom="0.90777595"
+     inkscape:cx="204.17176"
+     inkscape:cy="516.35573"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1287,11 +1317,11 @@
          y="515.64258">BAL dest</tspan></text>
     <rect
        id="rect4245-6-3-4-4"
-       width="29.165176"
-       height="109.97741"
-       x="566.25507"
-       y="528.66272"
-       style="fill:#ffffff;stroke:#920536;stroke-width:1.129246;stroke-opacity:1" />
+       width="29.281912"
+       height="88.062279"
+       x="566.19672"
+       y="528.60437"
+       style="fill:#ffffff;stroke:#920536;stroke-width:1.0125097;stroke-opacity:1" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.60102999px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend-1-3-6-5-5-6-9)"
        d="m 383.98149,554.35699 181.25245,0"
@@ -1334,18 +1364,18 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="689.09973"
-       y="679.87354"
+       x="512.84479"
+       y="645.72412"
        id="text4650-3-38-7-6-0-6"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         id="tspan4569"
-         x="691.48743"
-         y="679.87354">prise mutex </tspan><tspan
+         id="tspan3575"
+         x="512.84479"
+         y="645.72412">prise mutex +</tspan><tspan
          sodipodi:role="line"
-         id="tspan4571"
-         x="689.09973"
-         y="698.62354">via thd rep</tspan></text>
+         id="tspan3577"
+         x="512.84479"
+         y="664.47412">écriture réponse</tspan></text>
     <rect
        id="rect4245-2"
        width="29.254984"
@@ -1437,86 +1467,60 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="473.99957"
-       y="645.36829"
-       id="text4650-3-38-7-6-0-1-40"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3787"
-         x="476.38727"
-         y="645.36829">lancement </tspan><tspan
-         sodipodi:role="line"
-         id="tspan3789"
-         x="473.99957"
-         y="664.11829">thread rep</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="689.63147"
-       y="719.63159"
-       id="text4650-3-38-7-6-0-1-4"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4594"
-         x="689.63147"
-         y="719.63159">écriture rep</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="690.69287"
-       y="744.15887"
+       x="529.86023"
+       y="683.57123"
        id="text4650-3-38-7-6-0-1-4-5"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4624"
-         x="693.08057"
-         y="744.15887">Flag = 1 + </tspan><tspan
+         x="532.24792"
+         y="683.57123">Flag = 1 + </tspan><tspan
          sodipodi:role="line"
          id="tspan4626"
-         x="690.69287"
-         y="762.90887">signal &quot;plein&quot;</tspan></text>
+         x="529.86023"
+         y="702.32123">signal &quot;plein&quot;</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="682.79108"
-       y="798.86719"
+       x="528.56799"
+       y="726.16205"
        id="text4650-3-38-7-6-0-2-3"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4649"
-         x="685.17877"
-         y="798.86719">libère mutex </tspan><tspan
+         x="530.95569"
+         y="726.16205">libère mutex </tspan><tspan
          sodipodi:role="line"
          id="tspan4651"
-         x="682.79108"
-         y="817.61719" /></text>
+         x="528.56799"
+         y="744.91205" /></text>
     <rect
        id="rect4245-6-3-4-4-2-9"
        width="29.507835"
        height="52.741371"
-       x="464.05841"
-       y="714.35938"
+       x="465.16"
+       y="776.04858"
        style="fill:#ffffff;stroke:#920536;stroke-width:0.78659081;stroke-opacity:1" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06791747px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend-1-3-6-5-5-7)"
-       d="m 383.98149,729.11339 80.64182,0"
+       d="m 383.98149,802.92015 80.64182,0"
        id="path4269-7-7-0-2-5"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="420.68121"
-       y="721.87378"
+       x="419.57962"
+       y="797.88373"
        id="text4650-3-38-4"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4149"
-         x="420.68121"
-         y="721.87378">suppression</tspan><tspan
+         x="419.57962"
+         y="797.88373">suppression</tspan><tspan
          sodipodi:role="line"
          id="tspan4151"
-         x="420.68121"
-         y="740.62378">entrée</tspan></text>
+         x="419.57962"
+         y="816.63373">entrée</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.87891245px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend-1-3-63)"
        d="m 77.077952,215.95589 586.059618,0"
@@ -1544,5 +1548,15 @@
          id="tspan3627"
          x="423.82828"
          y="228.19276">réponse</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.01759338px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend-1-3-6-5-5-6-9-0-4-1)"
+       d="m 384.67795,686.63319 287.84068,0"
+       id="path4269-7-7-0-2-4-6-2-9-0"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2.03656697px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend-1-3-6-5-5-6-9-0-4-1-6)"
+       d="m 382.47476,730.69693 293.27991,0"
+       id="path4269-7-7-0-2-4-6-2-9-0-8"
+       inkscape:connector-curvature="0" />
   </g>
 </svg>
