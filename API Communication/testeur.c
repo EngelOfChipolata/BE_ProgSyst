@@ -12,43 +12,44 @@
 
 
 
-void* Ecriture (void * arg)
+void* ecriture (void * arg)
 {
     int i=0;
     char my_message[20];
     aboMsg(999);
-    aboMsg(888);
-    aboMsg(777);
-    aboMsg(555);
 
 	while(1){
 
         sprintf(my_message, "Message n°%d", i);
-		//sendMsg(my_message, 666, 999);
+        #ifdef DEBUG
+        printf("[User] Envoi d'un message : %s\n", my_message);
+        #endif
+		sendMsg(my_message, 666, 999);
 		i++;
-		sleep(2);					/*On attend un peu*/
+		sleep(2);				/*On attend un peu*/
 	}
 }
 
-void* Affichage (void *arg)
+void* affichage (void *arg)
 {
     int debug;
     char* my_message[20];
 
+    sleep(5);
+
     #ifdef DEBUG
     printf("affichage va s'abonner\n ");
     #endif
-
     debug = aboMsg(666);
     #ifdef DEBUG
     printf("affichage s'est abonné, code retour : %d\n", debug);
     #endif
 	while(1){
         //recvMsg(0, 666, my_message);
-		//printf("%s\n",*my_message);	/*On affiche le message présent dans le buffer là ou l'indice de lecture en est*/
 
 		sleep(1);				/*On attend un peu*/
 	}
+	pthread_exit(& my_message);
 }
 
 void* Supervision (void *arg)
@@ -85,25 +86,25 @@ int main (void)
     printf("hey salut on va créé les threads\n");
     #endif
 
-	if (pthread_create(&idThreadAffichage, NULL, Affichage, NULL) != 0){ 	/*Création du thread d'affichage*/
+	if (pthread_create(&idThreadAffichage, NULL, affichage, NULL) != 0){ 	/*Création du thread d'affichage*/
 		printf("Erreur Création thread d'affichage\n");
 		exit(1);
 	}
 
-	if (pthread_create(&idThreadEcriture, NULL, Ecriture, NULL) != 0){	/*Création du thread d'écriture*/
+	if (pthread_create(&idThreadEcriture, NULL, ecriture, NULL) != 0){	/*Création du thread d'écriture*/
 		printf("Erreur Création thread d'écriture\n");
 		exit(1);
 	}
 
 
-	if (pthread_create(&idThreadSupervision, NULL, Supervision, NULL) != 0){ /*Création de la tâche de supervision*/
-		printf("Erreur création thread de supervision\n");
-		exit(1);
-	}
+	//if (pthread_create(&idThreadSupervision, NULL, Supervision, NULL) != 0){ /*Création de la tâche de supervision*/
+		//printf("Erreur création thread de supervision\n");
+		//exit(1);
+	//}
 
 	pthread_join(idThreadEcriture, NULL);					/*On attend que les threads se terminent*/
 	pthread_join(idThreadAffichage, NULL);
-	pthread_join(idThreadSupervision, NULL);
+	//pthread_join(idThreadSupervision, NULL);
 
 	printf("Fin main\n");
 
