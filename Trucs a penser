@@ -11,3 +11,5 @@
 - Test performances
 
 -Toujours encadré les wait sur une variable conditionnelle d'un FUCKING WHILE !!!!
+
+-Stopper les thread écriture/lecture -> petit flag quelque part a tester par les thread avant d'acceder aux boites
