@@ -16,8 +16,8 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="desabo.svg"
-   inkscape:export-filename="/home/bobby/Documents/BE_ProgSyst/diag_seq_desabo.png"
+   sodipodi:docname="diag_seq_fin.svg"
+   inkscape:export-filename="/home/bobby/Documents/BE_ProgSyst/diag_seq_fin.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -902,15 +902,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.90777595"
-     inkscape:cx="421.11395"
-     inkscape:cy="821.87295"
+     inkscape:zoom="1.1772245"
+     inkscape:cx="285.91327"
+     inkscape:cy="806.92902"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:snap-to-guides="true"
-     inkscape:window-width="1215"
-     inkscape:window-height="1000"
+     inkscape:window-width="1855"
+     inkscape:window-height="1056"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1" />
@@ -1480,6 +1480,6 @@
          sodipodi:role="line"
          id="tspan3622">autodestruction</tspan><tspan
          sodipodi:role="line"
-         id="tspan3624"></tspan></text>
+         id="tspan3624" /></text>
   </g>
 </svg>
