@@ -203,6 +203,7 @@ int recvMsg(int flag, int id, char ** message)
         _zoneRequete.userid1 = id; /*On renseigne le destinataire*/
         _zoneRequete.id_thread = pthread_self();/*On renseigne l'id du thread emetteur*/
         _zoneRequete.flag_req = 1; /*Il y a maintenant une requête à lire*/
+        _zoneRequete.repzoneaddr = my_zone_reponse; /*On lui passe la zone réponse*/
         pthread_cond_signal(&(_zoneRequete.var_cond_req_empty)); /*On réveille le thread gestionnaire s'il est en attente*/
         pthread_mutex_unlock(&(_zoneRequete.mutexreq)); /*On libère le mutex*/
     }
@@ -212,6 +213,7 @@ int recvMsg(int flag, int id, char ** message)
         _zoneRequete.userid1 = id; /*On renseigne le destinataire*/
         _zoneRequete.id_thread = pthread_self();/*On renseigne l'id du thread emetteur*/
         _zoneRequete.flag_req = 1; /*Il y a maintenant une requête à lire*/
+        _zoneRequete.repzoneaddr = my_zone_reponse; /*On lui passe la zone réponse*/
         pthread_cond_signal(&(_zoneRequete.var_cond_req_empty)); /*On réveille le thread gestionnaire s'il est en attente*/
         pthread_mutex_unlock(&(_zoneRequete.mutexreq)); /*On libère le mutex*/
     }

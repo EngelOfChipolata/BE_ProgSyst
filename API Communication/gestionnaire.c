@@ -7,6 +7,7 @@
 #include "string.h"
 #define DEBUGGEST
 #define DEBUGECRITURE
+#define DEBUGRECV
 
 
 
