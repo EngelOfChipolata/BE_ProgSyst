@@ -186,6 +186,9 @@ int recvMsg(int flag, int id, char ** message){
 }
 
 int desaboMsg(int id){
+    if (!idgestlaunched()){ /*On teste si le thread gestionnaire est bien lancé*/
+        return -1;
+    }
     return 0;
 }
 
