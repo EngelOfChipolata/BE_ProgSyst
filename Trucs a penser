@@ -13,3 +13,7 @@
 -Toujours encadré les wait sur une variable conditionnelle d'un FUCKING WHILE !!!!
 
 -Stopper les thread écriture/lecture -> petit flag quelque part a tester par les thread avant d'acceder aux boites
+
+-Mettre la priorité des threads écriture/lecture sur FIFO et pitetre ça va marcher
+
+-Passer la zone réponse dans la requête à CHAQUE fonction.
