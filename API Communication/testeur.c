@@ -19,16 +19,16 @@ void* ecriture (void * arg)
     aboMsg(999);
     aboMsg(777);
 
-	//while(1){
+	while(1){
 
         sprintf(my_message, "Message n°%d", i);
         #ifdef DEBUG
         printf("[User] Envoi d'un message : %s\n", my_message);
         #endif
-		sendMsg(my_message, 0, 666);
+		sendMsg(my_message, 666, 999);
 		i++;
 		sleep(2);				/*On attend un peu*/
-	//}
+	}
 }
 
 void* affichage (void *arg)

@@ -46,6 +46,7 @@ typedef struct annuaire{
     int id;
     pthread_t idThread;
     BaL * bal;
+    char * exist;
 }Annuaire;
 
 typedef struct idthreadgest{
@@ -56,6 +57,7 @@ typedef struct idthreadgest{
 typedef struct argsthreadecriture{
     BaL * boitealettres;
     char message[TAILLEMAX];
+    char * exist;
 } argThreadEcriture;
 
 

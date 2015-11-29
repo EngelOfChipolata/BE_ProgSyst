@@ -263,9 +263,56 @@ int recvMsg(int flag, int id, char ** message)
     }
 }
 
-    int desaboMsg(int id)
+int desaboMsg(int id){
+    repZone *my_zone_reponse;
+    int coderet;
+
+    if (!idgestlaunched())  /*On teste si le thread gesitionnaire est bien lancé*/
     {
-        return 0;
+        return -1;
+    }
+
+    my_zone_reponse = calloc(1, sizeof(repZone)); /*On créé la zone réponse de cette session*/
+
+    pthread_mutex_lock(&(_zoneRequete.mutexreq));
+
+#ifdef DEBUGSEND
+    printf("[desaboMsg] a le mutex de requête\n");
+#endif
+
+    while(_zoneRequete.flag_req == 1)  /*Si une requête est déjà écrite*/
+    {
+        pthread_cond_wait(&(_zoneRequete.var_cond_req_full), &(_zoneRequete.mutexreq)); /*On attend en libérant le mutex*/
+    }
+    /*Sinon on écrit la requête de désabonnement*/
+    _zoneRequete.numrequest = 5; /*La requête est un désabonnement*/
+    _zoneRequete.userid1 = id; /*On renseigne l'identifiant*/
+    _zoneRequete.id_thread = pthread_self();/*On renseigne l'id du thread emetteur*/
+    _zoneRequete.repzoneaddr = my_zone_reponse; /*On renseigne l'id de la zone réponse de cette session*/
+    _zoneRequete.flag_req = 1; /*Il y a maintenant une requête à lire*/
+    pthread_cond_signal(&(_zoneRequete.var_cond_req_empty)); /*On réveille le thread gestionnaire s'il est en attente*/
+    pthread_mutex_unlock(&(_zoneRequete.mutexreq)); /*On libère le mutex*/
+
+
+
+    pthread_mutex_lock(&(my_zone_reponse->mutexrep)); /*On prend le mutex de réponse*/
+#ifdef DEBUGSEND
+    printf("[desaboMsg] a le mutex de sa réponse : %d\n", my_zone_reponse);
+#endif
+
+    while(my_zone_reponse->flag_rep == 0) /*Si il n'y a pas de réponse on libère le mutex et on attend*/
+    {
+        pthread_cond_wait(&(my_zone_reponse->var_cond_rep), &(my_zone_reponse->mutexrep));
+    }
+    coderet = my_zone_reponse->code_err; /*On récupère le code retour*/
+#ifdef DEBUGSEND
+    printf("[desaboMsg] a une réponse : %d\n", coderet);
+#endif
+    pthread_mutex_unlock(&(my_zone_reponse->mutexrep)); /*On libère le mutex*/
+
+    free(my_zone_reponse); /*On libère la mémoire de la zone réponse*/
+    my_zone_reponse = NULL; /*Pour être sur de pas y retourner*/
+    return coderet; /*On retourne directement le code retour*/
     }
 
     int finMsg(int force)

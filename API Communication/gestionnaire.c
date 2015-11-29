@@ -20,6 +20,7 @@ void* Ecriture(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     BaL * boite = my_args->boitealettres; /*Parmis eux on récupère la boite à lettre a renseigner*/
     char message[TAILLEMAX];  /*Ainsi que le message à écrire*/
     strcpy(message, my_args->message);
+    char * exist = my_args->exist; /*Mais aussi le flag d'existence !*/
 
     free(my_args);  /*On libère la zone utilisée pour passer les arguments*/
     my_args = NULL;
@@ -28,13 +29,21 @@ void* Ecriture(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     printf("[Ecriture] Arguments libérés\n");
     #endif
 
+
+    if (*exist){
     pthread_mutex_lock(&(boite->mutex_bal));  /*On vérouille le mutex de la boite à lettre à écrire*/
     #ifdef DEBUGECRITURE
     printf("[Ecriture] Ecriture a le mutex d'une boite à lettre\n");
     #endif
 
-    while (boite->nb_msg >= TAILLEBAL){ /*Si la boite à lettre est pleine on attend*/
+    while (*exist && boite->nb_msg >= TAILLEBAL){ /*Si la boite à lettre est pleine on attend*/
         pthread_cond_wait(&(boite->var_cond_bal_full), &(boite->mutex_bal));
+    }
+    if (!*exist){
+        #ifdef DEBUGECRITURE
+        printf("[Ecriture] La bal n'existe plus je me suicide\n");
+        #endif // DEBUGECRITURE
+        pthread_exit(NULL); /*Si la boite à lettre n'existe plus on se suicide*/
     }
 
     #ifdef DEBUGECRITURE
@@ -51,8 +60,12 @@ void* Ecriture(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     pthread_mutex_unlock(&(boite->mutex_bal)); /*On libère le mutex de la boite à lettre*/
 
     #ifdef DEBUGECRITURE
-    printf("[Ecriture] Ecriture a envoyé le signal, libéré le mutex et va s'éteindre\n");
+    printf("[Ecriture] Ecriture a envoyé le signal, libéré le mutex\n");
     #endif
+    }
+    #ifdef DEBUGECRITURE
+    printf("[Ecriture] Ecriture va s'éteindre\n");
+    #endif // DEBUGECRITURE
 
     pthread_exit(NULL); /*On fini le thread*/
 }
@@ -112,17 +125,17 @@ void* Gestionnaire (void *arg){
         }
 
         #ifdef DEBUGGEST
-        printf("Le gestionnaire est réveillé et va traiter la requête\nLa requête est : %d\n", _zoneRequete.numrequest);
+        printf("[Gestionnaire] Le gestionnaire est réveillé et va traiter la requête\nLa requête est : %d\n", _zoneRequete.numrequest);
         #endif // DEBUGGEST
         zone_reponse = _zoneRequete.repzoneaddr; /*On lit et on stocke la zone dans laquelle on doit répondre a cette requête*/
         switch(_zoneRequete.numrequest){
             case 1: /*abonnement*/
                 #ifdef DEBUGGEST
-                printf("Le gestionnaire va traiter la requête abo\n");
+                printf("[Gestionnaire] Le gestionnaire va traiter la requête abo\n");
                 #endif // DEBUGGEST
                 if (nbthreadabonne >=*nbthreadmax){ /*Si le nombre maximal est atteint on écrit une erreur dans la zone réponse*/
                     #ifdef DEBUGGEST
-                    printf("Plus de place dans l'annuaire\n");
+                    printf("[Gestionnaire]Plus de place dans l'annuaire\n");
                     #endif // DEBUGGEST
                     writerepcode(zone_reponse, -3);
                     break;
@@ -133,11 +146,20 @@ void* Gestionnaire (void *arg){
                     break;
                 }
 
+
                 for(i=0; i<*nbthreadmax; i++){  /*On parcourt l'annuaire pour trouver une place libre (qui existe car on a testé avant si l'annuaire était plein)*/
                     if (annuaire[i].id == 0){
-                        if((annuaire[i].bal = calloc(1, sizeof(BaL)))==NULL){ /*Si on n'arrive pas a créer la boite à lettre on écrit une erreur*/
+                        if((annuaire[i].bal = calloc(1, sizeof(BaL)))==NULL){ /*Si on n'arrive pas a créer la boite à lettre on écrit une erreur et on sort de la boucle*/
                             writerepcode(zone_reponse, -4);
+                            break;
                         }
+                        if ((annuaire[i].exist = calloc(1, sizeof(char)))==NULL){ /*Si on arrive pas à créer le flag d'existence*/
+                            writerepcode(zone_reponse, -4); /*On écrit une erreur, on libère la boite à lettre et on sort de la boucle*/
+                            free(annuaire[i].bal);
+                            annuaire[i].bal = NULL;
+                            break;
+                        }
+                        *(annuaire[i].exist) = 1;
                         annuaire[i].id = _zoneRequete.userid1; /*On écrit les informations dans l'annuaire*/
                         annuaire[i].idThread = _zoneRequete.id_thread;
                         #ifdef DEBUGGEST
@@ -158,11 +180,11 @@ void* Gestionnaire (void *arg){
 
                 if (indexsource == -1){ /*Si il n'y est pas on écrit une erreur*/
                     writerepcode(zone_reponse, -2);
-                    break;
+                    break; /*Fin du switch*/
                 }
                 if (annuaire[indexsource].idThread != _zoneRequete.id_thread){ /*Si le thread source ne correspond pas au thread abonné avec cet id on écrit une erreur*/
                     writerepcode(zone_reponse, -3);
-                    break;
+                    break; /*Fin du switch*/
                 }
 
                 if (_zoneRequete.userid1 == 0){ /*Si on veut envoyer en broadcast*/
@@ -170,9 +192,11 @@ void* Gestionnaire (void *arg){
                         if (annuaire[i].id != 0 && annuaire[i].id != annuaire[indexsource].id){ /*Si c'est une entrée abonnée et que ce n'est pas celle de l'emmeteur*/
                             if ((argecriture = calloc(1, sizeof(argThreadEcriture)))==NULL){ /*On alloue une zone pour passer les arguments au thread*/
                                 writerepcode(zone_reponse, -5); /*Si on y arrive pas on écrit une erreur*/
+                                break; /*Et on sort de la boucle*/
                             }
                             argecriture->boitealettres = annuaire[i].bal; /*On prépare les arguments a passer*/
                             strcpy(argecriture->message, _zoneRequete.msg);
+                            argecriture->exist = annuaire[i].exist;
                             #ifdef DEBUGECRITURE
                             printf("Le gestionnaire a écrit les arguments et va lancé le thread d'écriture\n");
                             #endif // DEBUGECRITURE
@@ -180,24 +204,26 @@ void* Gestionnaire (void *arg){
                                 free(argecriture); /*Si il y a eu un problème lors de la création du thread on libère la zone des arguments et on écrit un erreur*/
                                 argecriture = NULL;
                                 writerepcode(zone_reponse, -6);
+                                break; /*On sort de la boucle*/
                             }
                         }
-                    }break;
+                    }break; /*Fin du switch*/
                 }
 
                 indexdest = findid(annuaire, *nbthreadmax, _zoneRequete.userid1); /*On cherche l'identifiant destinataire dans l'annuaire*/
                 if (indexdest == -1){ /*Si il n'y est pas on renvoie une erreur*/
                     writerepcode(zone_reponse, -4);
-                    break;
+                    break; /*Fin du switch*/
                 }
 
 
                 if ((argecriture = calloc(1, sizeof(argThreadEcriture)))==NULL){ /*On alloue une zone pour passer les arguments au thread*/
                     writerepcode(zone_reponse, -5); /*Si on y arrive pas on écrit une erreur*/
-                    break;
+                    break; /*Fin du switch*/
                 }
                 argecriture->boitealettres = annuaire[indexdest].bal; /*On prépare les arguments a passer*/
                 strcpy(argecriture->message, _zoneRequete.msg);
+                argecriture->exist = annuaire[indexdest].exist;
                 #ifdef DEBUGECRITURE
                 printf("Le gestionnaire a écrit les arguments et va lancé le thread d'écriture\n");
                 #endif // DEBUGECRITURE
@@ -205,7 +231,7 @@ void* Gestionnaire (void *arg){
                     free(argecriture); /*Si il y a eu un problème lors de la création du thread on libère la zone des arguments et on écrit un erreur*/
                     argecriture = NULL;
                     writerepcode(zone_reponse, -6);
-                    break;
+                    break; /*Fin du switch*/
                 }
 
                 #ifdef DEBUGECRITURE
@@ -215,7 +241,7 @@ void* Gestionnaire (void *arg){
                 argecriture = NULL; /*Il faut etre sur de ne pas y refaire référence*/
                 writerepcode(zone_reponse, 0); /*tout s'est bien passé on écrit 0*/
 
-                break;
+                break; /*Fin du switch*/
 
             case 3:
                 break;
