@@ -17,17 +17,18 @@ void* ecriture (void * arg)
     int i=0;
     char my_message[20];
     aboMsg(999);
+    aboMsg(777);
 
-	while(1){
+	//while(1){
 
         sprintf(my_message, "Message n°%d", i);
         #ifdef DEBUG
         printf("[User] Envoi d'un message : %s\n", my_message);
         #endif
-		sendMsg(my_message, 666, 999);
+		sendMsg(my_message, 0, 666);
 		i++;
 		sleep(2);				/*On attend un peu*/
-	}
+	//}
 }
 
 void* affichage (void *arg)
@@ -35,7 +36,6 @@ void* affichage (void *arg)
     int debug;
     char* my_message[20];
 
-    sleep(5);
 
     #ifdef DEBUG
     printf("affichage va s'abonner\n ");

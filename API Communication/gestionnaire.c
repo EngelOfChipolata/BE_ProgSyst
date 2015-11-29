@@ -165,6 +165,26 @@ void* Gestionnaire (void *arg){
                     break;
                 }
 
+                if (_zoneRequete.userid1 == 0){ /*Si on veut envoyer en broadcast*/
+                    for (i=0; i < *nbthreadmax; i++){ /*On parcourt tout l'annuaire*/
+                        if (annuaire[i].id != 0 && annuaire[i].id != annuaire[indexsource].id){ /*Si c'est une entrée abonnée et que ce n'est pas celle de l'emmeteur*/
+                            if ((argecriture = calloc(1, sizeof(argThreadEcriture)))==NULL){ /*On alloue une zone pour passer les arguments au thread*/
+                                writerepcode(zone_reponse, -5); /*Si on y arrive pas on écrit une erreur*/
+                            }
+                            argecriture->boitealettres = annuaire[i].bal; /*On prépare les arguments a passer*/
+                            strcpy(argecriture->message, _zoneRequete.msg);
+                            #ifdef DEBUGECRITURE
+                            printf("Le gestionnaire a écrit les arguments et va lancé le thread d'écriture\n");
+                            #endif // DEBUGECRITURE
+                            if (pthread_create(&idthreadlance, NULL, Ecriture, argecriture) != 0){/*Création du thread d'écriture*/
+                                free(argecriture); /*Si il y a eu un problème lors de la création du thread on libère la zone des arguments et on écrit un erreur*/
+                                argecriture = NULL;
+                                writerepcode(zone_reponse, -6);
+                            }
+                        }
+                    }break;
+                }
+
                 indexdest = findid(annuaire, *nbthreadmax, _zoneRequete.userid1); /*On cherche l'identifiant destinataire dans l'annuaire*/
                 if (indexdest == -1){ /*Si il n'y est pas on renvoie une erreur*/
                     writerepcode(zone_reponse, -4);
