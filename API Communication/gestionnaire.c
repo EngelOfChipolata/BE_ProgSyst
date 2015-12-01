@@ -103,6 +103,11 @@ void* Gestionnaire (void *arg){
     int indexsource = 0;
     argThreadEcriture * argecriture; /*Pour passer des arguments aux threads d'écriture*/
 
+    pthread_attr_t attributes; /*Pour passer les attributs aux threads d'écriture et de lecture*/
+
+    pthread_attr_init(&attributes); /*Initialisation des attributs*/
+    pthread_attr_setschedpolicy(&attributes, SCHED_FIFO); /*On met la politique d'ordonnancement des futurs threads en FIFO*/
+
     for (i=0; i < *nbthreadmax; i++){ /*Initialisation de l'annuaire*/
         annuaire[i].id = 0;
     }
@@ -227,7 +232,7 @@ void* Gestionnaire (void *arg){
                 #ifdef DEBUGECRITURE
                 printf("Le gestionnaire a écrit les arguments et va lancé le thread d'écriture\n");
                 #endif // DEBUGECRITURE
-                if (pthread_create(&idthreadlance, NULL, Ecriture, argecriture) != 0){/*Création du thread d'écriture*/
+                if (pthread_create(&idthreadlance, &attributes, Ecriture, argecriture) != 0){/*Création du thread d'écriture*/
                     free(argecriture); /*Si il y a eu un problème lors de la création du thread on libère la zone des arguments et on écrit un erreur*/
                     argecriture = NULL;
                     writerepcode(zone_reponse, -6);
@@ -244,6 +249,40 @@ void* Gestionnaire (void *arg){
                 break; /*Fin du switch*/
 
             case 3:
+                break;
+
+            case 4:
+                break;
+
+            case 5:
+                #ifdef DEBUGDESABO
+                printf("Le gestionnaire va traiter une reqûete de désabonnement\n");
+                #endif // DEBUGDESABO
+                indexsource = findid(annuaire, *nbthreadmax, _zoneRequete.userid2); /*On cherche l'identifiant à désabonner dans l'annuaire*/
+
+                if (indexsource == -1){ /*S'il n'y est pas on écrit une erreur*/
+                    writerepcode(zone_reponse, -2);
+                    break;
+                }
+
+                if (annuaire[indexsource].idThread != _zoneRequete.id_thread){ /*Si le thread demandant le désabonnement n'est pas celui qui s'est abonné on écrit une erreur*/
+                    writerepcode(zone_reponse, -3);
+                    break;
+                }
+
+                pthread_mutex_lock(&(annuaire[indexsource].bal->mutex_bal)); /*On s'assure que personne n'utilise la boite à lettre pendant le désabonnement*/
+                *(annuaire[indexsource].exist) = 0; /*On passe la flag d'existance à 0*/
+                pthread_cond_broadcast(&(annuaire[indexsource].bal->var_cond_bal_empty)); /*On réveille tous les threads lecteurs en attente de cette boite à lettres pour qu'ils testent le flag d'existance et se suicident*/
+                pthread_cond_broadcast(&(annuaire[indexsource].bal->var_cond_bal_full)); /*On réveille tous les threads écrivains en attente de cette boite à lettres pour qu'ils testent le flag d'existance et se suicident*/
+                pthread_mutex_unlock(&(annuaire[indexsource].bal->mutex_bal)); /*On libère le mutex de la boite à lettre avant de libérer la mémoire*/
+
+                free(annuaire[indexsource].bal);
+                annuaire[indexsource].bal = NULL;
+
+                annuaire[indexsource].idThread = 0; /*On efface l'entrée dans l'annuaire*/
+                annuaire[indexsource].id = 0;
+
+                writerepcode(zone_reponse, 0); /*Tout s'est bien passé on écrit le code retour 0 dans la zone de réponse*/
                 break;
         }
 
