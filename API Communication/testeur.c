@@ -44,6 +44,8 @@ void* affichage (void *arg)
     #ifdef DEBUG
     printf("affichage s'est abonné, code retour : %d\n", debug);
     #endif
+    sleep(5);
+    desaboMsg(666);
 	while(1){
         //recvMsg(0, 666, my_message);
 
