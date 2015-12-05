@@ -291,7 +291,6 @@ void* Gestionnaire (void *arg){
                 break;
 
             case 6:
-
             break;
             case 7:
             break;
