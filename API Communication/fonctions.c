@@ -11,6 +11,7 @@
 #define DEBUGABO
 #define DEBUGSEND
 #define DEBUGRECV
+#define DEBUGDESABO
 
 int idgestlaunched()  /*Fonction qui vérifie si le thread est lancé renvoie 0 si le thread gestionnaire n'est pas lancé*/
 {
@@ -276,7 +277,7 @@ int desaboMsg(int id){
 
     pthread_mutex_lock(&(_zoneRequete.mutexreq));
 
-#ifdef DEBUGSEND
+#ifdef DEBUGDESABO
     printf("[desaboMsg] a le mutex de requête\n");
 #endif
 
@@ -288,6 +289,9 @@ int desaboMsg(int id){
     _zoneRequete.numrequest = 5; /*La requête est un désabonnement*/
     _zoneRequete.userid1 = id; /*On renseigne l'identifiant*/
     _zoneRequete.id_thread = pthread_self();/*On renseigne l'id du thread emetteur*/
+    #ifdef DEBUGDESABO
+        printf("[desabMsg] le thread est : %d\t%d\n", _zoneRequete.id_thread, pthread_self());
+    #endif // DEBUGDESABO
     _zoneRequete.repzoneaddr = my_zone_reponse; /*On renseigne l'id de la zone réponse de cette session*/
     _zoneRequete.flag_req = 1; /*Il y a maintenant une requête à lire*/
     pthread_cond_signal(&(_zoneRequete.var_cond_req_empty)); /*On réveille le thread gestionnaire s'il est en attente*/
@@ -296,7 +300,7 @@ int desaboMsg(int id){
 
 
     pthread_mutex_lock(&(my_zone_reponse->mutexrep)); /*On prend le mutex de réponse*/
-#ifdef DEBUGSEND
+#ifdef DEBUGDESABO
     printf("[desaboMsg] a le mutex de sa réponse : %d\n", my_zone_reponse);
 #endif
 
@@ -305,7 +309,7 @@ int desaboMsg(int id){
         pthread_cond_wait(&(my_zone_reponse->var_cond_rep), &(my_zone_reponse->mutexrep));
     }
     coderet = my_zone_reponse->code_err; /*On récupère le code retour*/
-#ifdef DEBUGSEND
+#ifdef DEBUGDESABO
     printf("[desaboMsg] a une réponse : %d\n", coderet);
 #endif
     pthread_mutex_unlock(&(my_zone_reponse->mutexrep)); /*On libère le mutex*/

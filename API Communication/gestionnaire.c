@@ -8,6 +8,7 @@
 #define DEBUGGEST
 #define DEBUGECRITURE
 #define DEBUGRECV
+#define DEBUGDESABO
 
 
 
@@ -258,7 +259,7 @@ void* Gestionnaire (void *arg){
                 #ifdef DEBUGDESABO
                 printf("Le gestionnaire va traiter une reqûete de désabonnement\n");
                 #endif // DEBUGDESABO
-                indexsource = findid(annuaire, *nbthreadmax, _zoneRequete.userid2); /*On cherche l'identifiant à désabonner dans l'annuaire*/
+                indexsource = findid(annuaire, *nbthreadmax, _zoneRequete.userid1); /*On cherche l'identifiant à désabonner dans l'annuaire*/
 
                 if (indexsource == -1){ /*S'il n'y est pas on écrit une erreur*/
                     writerepcode(zone_reponse, -2);
@@ -282,8 +283,20 @@ void* Gestionnaire (void *arg){
                 annuaire[indexsource].idThread = 0; /*On efface l'entrée dans l'annuaire*/
                 annuaire[indexsource].id = 0;
 
+                #ifdef DEBUGDESABO
+                printf("[Gestionnaire] Désabonnement réussi \n");
+                #endif // DEBUGDESABO
+
                 writerepcode(zone_reponse, 0); /*Tout s'est bien passé on écrit le code retour 0 dans la zone de réponse*/
                 break;
+
+            case 6:
+
+            break;
+            case 7:
+            break;
+
+
         }
 
         _zoneRequete.flag_req = 0; /*On libère le mutex de la requête et on envoie un signal réveillant les thread en attente d'écriture d'une requête*/
@@ -291,6 +304,9 @@ void* Gestionnaire (void *arg){
         pthread_mutex_unlock(&(_zoneRequete.mutexreq));
         #ifdef DEBUGGEST
         printf("[Gestionnaire]mutex requête libéré\n");
+        for (i=0; i<*nbthreadmax; i++ ){
+            printf("[Annuaire] id : %d\tidthread : %d\n",annuaire[i].id, annuaire[i].idThread);
+        }
         #endif
     }
 
