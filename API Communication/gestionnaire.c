@@ -283,6 +283,8 @@ void* Gestionnaire (void *arg){
                 annuaire[indexsource].idThread = 0; /*On efface l'entrée dans l'annuaire*/
                 annuaire[indexsource].id = 0;
 
+                nbthreadabonne--; /*On décrémente le nombre de threads abonnés*/
+
                 #ifdef DEBUGDESABO
                 printf("[Gestionnaire] Désabonnement réussi \n");
                 #endif // DEBUGDESABO
@@ -291,6 +293,11 @@ void* Gestionnaire (void *arg){
                 break;
 
             case 6:
+            #ifdef DEBUGTERM
+            printf("[Gestionnaire] Le gestionnaire va traiter une requête de terminaison douce\n");
+            #endif // DEBUGTERM
+
+
             break;
             case 7:
             break;
