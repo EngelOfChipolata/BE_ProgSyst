@@ -246,10 +246,11 @@ int recvMsg(int flag, int id, char ** message)
         {
         case 0 :
             *message = my_zone_reponse->msg;
-            return coderet;
+            break;
         default :
-            return coderet;
+            break;
         }
+        return coderet;
     }
 
     else if (flag == 1)

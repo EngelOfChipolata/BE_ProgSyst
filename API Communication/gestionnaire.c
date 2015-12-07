@@ -72,6 +72,99 @@ void* Ecriture(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     pthread_exit(NULL); /*On fini le thread*/
 }
 
+void* Lecture_msg(void * arg){  /*Thread lancé pour l'écriture d'un message*/
+    #ifdef DEBUGRECV
+    printf("[Lecture_msg] Thread lecture lancé \n");
+    #endif
+
+    argThreadLecture * my_args = arg; /*On récupère les arguments pour pouvoir libérer la structure dans le tas*/
+    BaL * boite = my_args->boitealettres; /*Parmis eux on récupère la boite à lettre a renseigner*/
+    repZone * zonerep = my_args->repzoneaddr; /*Egalement la zone réponse où écrire*/
+    int flag = my_args->flag;
+    char * exist = my_args->exist; /*Mais aussi le flag d'existence !*/
+
+    char message[TAILLEMAX];  /*Message à lire que l'on stockera dans cette varible locale*/
+    int nb_msg; /*nombre message dans la Bal*/
+
+    free(my_args);  /*On libère la zone utilisée pour passer les arguments*/
+    my_args = NULL;
+
+    #ifdef DEBUGRECV
+    printf("[Lecture_msg] Arguments libérés\n");
+    #endif
+
+    if(*exist){
+    pthread_mutex_lock(&(boite->mutex_bal));  /*On vérouille le mutex de la boite à lettre à écrire*/
+    #ifdef DEBUGRECV
+    printf("[Lecture_msg] Lecture_msg a le mutex d'une boite à lettre\n");
+    #endif
+    }
+
+    while (*exist && boite->nb_msg == 0 && flag==0){/*Fonction bloquante s'il n'y a pas de message et qu'on souhaite lire un message*/
+        pthread_cond_wait(&(boite->var_cond_bal_empty), &(boite->mutex_bal));}
+
+
+    if (!*exist){
+        #ifdef DEBUGRECV
+        printf("[Lecture_msg] La bal n'existe plus je me suicide\n");
+        #endif // DEBUGRECV
+
+        pthread_mutex_unlock(&(boite->mutex_bal));
+        pthread_exit(NULL); /*Si la boite à lettre n'existe plus on se suicide*/
+    }
+
+    if (flag == 0) {
+        strcpy(message, boite->msgs[boite->ilecture]);/*On lit le message*/
+
+        #ifdef DEBUGRECV
+        printf("[Lecture_msg] Lecture_msg a lu le message : %s\n", message);
+        #endif // DEBUGRECV
+
+        boite->ilecture = (boite->ilecture + 1)%TAILLEBAL; /*On incrémente l'indice de lecture*/
+        (boite->nb_msg)--; /*On décrémente le nombre de messages*/
+    }
+
+    else if (flag == 1) {
+        nb_msg = boite->nb_msg;
+        #ifdef DEBUGRECV
+        printf("[Lecture_msg] Lecture_msg a lu le nombre de messages : %d\n", nb_msg);
+        #endif // DEBUGRECV
+    }
+
+
+    pthread_cond_signal(&(boite->var_cond_bal_full)); /*On réveille les Threads d'écriture en attente*/
+    pthread_mutex_unlock(&(boite->mutex_bal)); /*On libère le mutex de la boite à lettre*/
+
+    #ifdef DEBUGRECV
+    printf("[Lecture_msg] Lecture_msg a libéré la BaL");
+    #endif // DEBUGRECV
+
+    pthread_mutex_lock(&(zonerep->mutexrep)); /* On vérouille le mutex de la zone réponse */
+
+    #ifdef DEBUGRECV
+    printf("[Lecture_msg] Lecture_msg a vérouillé la zone réponse");
+    #endif // DEBUGRECV
+
+    if (flag == 0) {
+        zonerep->code_err = 0;
+        strcpy(zonerep->msg,message);
+    }
+    else if (flag == 1) {
+        zonerep->nb_msg = nb_msg;
+    }
+    zonerep->code_err = 0;
+    zonerep->flag_rep = 1;
+    pthread_cond_signal(&(zonerep->var_cond_rep));
+    pthread_mutex_unlock(&(zonerep->mutexrep));
+
+    #ifdef DEBUGRECV
+    printf("[Lecture_msg] Lecture_msg a libéré la zone réponse");
+    #endif // DEBUGRECV
+
+    pthread_exit(NULL);
+}
+
+
 int findid(Annuaire* annuaire,int tailleannuaire, int id){ /*Fonction qui parcourt l'annuaire et qui renvoie l'index de l'id demandé ou -1 si non trouvé*/
     int i;
     for (i =0; i<tailleannuaire; i++){
@@ -119,6 +212,8 @@ void* Gestionnaire (void *arg){
     int indexdest = 0;
     int indexsource = 0;
     argThreadEcriture * argecriture; /*Pour passer des arguments aux threads d'écriture*/
+    argThreadLecture * arglecture_msg; /*Pour passer des arguments aux threads de lecture de message*/
+    argThreadLecture * arglecture_nb; /*Pour passer des arguments aux threads de lecture du nombre de messages*/
 
     pthread_attr_t attributes; /*Pour passer les attributs aux threads d'écriture et de lecture*/
 
@@ -266,9 +361,90 @@ void* Gestionnaire (void *arg){
                 break; /*Fin du switch*/
 
             case 3:
+                #ifdef DEBUGRECV
+                printf("Le gestionnaire va traiter la requête de lecture de message\n");
+                #endif
+
+                indexsource = findid(annuaire, *nbthreadmax, _zoneRequete.userid1); /*On cherche l'identifiant de la source dans l'annuaire*/
+
+                if (indexsource == -1){ /*Si il n'y est pas on écrit une erreur*/
+                    writerepcode(zone_reponse, -2);
+                    break; /*Fin du switch*/
+                }
+                if (annuaire[indexsource].idThread != _zoneRequete.id_thread){ /*Si le thread source ne correspond pas au thread abonné avec cet id on écrit une erreur*/
+                    writerepcode(zone_reponse, -3);
+                    break; /*Fin du switch*/
+                }
+
+                if ((arglecture_msg = calloc(1, sizeof(argThreadLecture)))==NULL){ /*On alloue une zone pour passer les arguments au thread*/
+                    writerepcode(zone_reponse, -5); /*Si on y arrive pas on écrit une erreur*/
+                    break; /*Fin du switch*/
+                }
+                arglecture_msg->boitealettres = annuaire[indexdest].bal; /*On prépare les arguments a passer*/
+                arglecture_msg->repzoneaddr = zone_reponse;
+                arglecture_msg->flag = 0;
+                arglecture_msg->exist = annuaire[indexsource].exist;
+
+                #ifdef DEBUGRECV
+                printf("Le gestionnaire a écrit les arguments et va lancer le thread de lecture\n");
+                #endif // DEBUGECRITURE
+
+                if (pthread_create(&idthreadlance, &attributes, Lecture_msg, arglecture_msg) != 0){/*Création du thread d'écriture*/
+                    free(arglecture_msg); /*Si il y a eu un problème lors de la création du thread on libère la zone des arguments et on écrit un erreur*/
+                    arglecture_msg = NULL;
+                    writerepcode(zone_reponse, -6);
+                    break; /*Fin du switch*/
+                }
+
+                #ifdef DEBUGRECV
+                printf("[Gestionnaire] Thread écriture lancé");
+                #endif
+
+                arglecture_msg = NULL; /*Il faut etre sur de ne pas y refaire référence*/
                 break;
 
             case 4:
+
+                #ifdef DEBUGRECV
+                printf("Le gestionnaire va traiter la requête de lecture de nombre de message\n");
+                #endif
+
+                indexsource = findid(annuaire, *nbthreadmax, _zoneRequete.userid1); /*On cherche l'identifiant de la source dans l'annuaire*/
+
+                if (indexsource == -1){ /*Si il n'y est pas on écrit une erreur*/
+                    writerepcode(zone_reponse, -2);
+                    break; /*Fin du switch*/
+                }
+                if (annuaire[indexsource].idThread != _zoneRequete.id_thread){ /*Si le thread source ne correspond pas au thread abonné avec cet id on écrit une erreur*/
+                    writerepcode(zone_reponse, -3);
+                    break; /*Fin du switch*/
+                }
+
+                if ((arglecture_msg = calloc(1, sizeof(argThreadLecture)))==NULL){ /*On alloue une zone pour passer les arguments au thread*/
+                    writerepcode(zone_reponse, -5); /*Si on y arrive pas on écrit une erreur*/
+                    break; /*Fin du switch*/
+                }
+                arglecture_msg->boitealettres = annuaire[indexdest].bal; /*On prépare les arguments a passer*/
+                arglecture_msg->repzoneaddr = zone_reponse;
+                arglecture_msg->flag = 1;
+                arglecture_msg->exist = annuaire[indexsource].exist;
+
+                #ifdef DEBUGRECV
+                printf("Le gestionnaire a écrit les arguments et va lancer le thread de lecture\n");
+                #endif // DEBUGECRITURE
+
+                if (pthread_create(&idthreadlance, &attributes, Lecture_msg, arglecture_msg) != 0){/*Création du thread d'écriture*/
+                    free(arglecture_msg); /*Si il y a eu un problème lors de la création du thread on libère la zone des arguments et on écrit un erreur*/
+                    arglecture_msg = NULL;
+                    writerepcode(zone_reponse, -6);
+                    break; /*Fin du switch*/
+                }
+
+                #ifdef DEBUGRECV
+                printf("[Gestionnaire] Thread écriture lancé");
+                #endif
+
+                arglecture_msg = NULL; /*Il faut etre sur de ne pas y refaire référence*/
                 break;
 
             case 5:
@@ -339,3 +515,4 @@ void* Gestionnaire (void *arg){
     }
 
 }
+

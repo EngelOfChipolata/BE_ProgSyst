@@ -60,6 +60,13 @@ typedef struct argsthreadecriture{
     char * exist;
 } argThreadEcriture;
 
+typedef struct argsthreadlecture{
+    BaL * boitealettres;
+    repZone * repzoneaddr;
+    int flag;
+    char * exist;
+} argThreadLecture;
+
 
 
 #endif // STRUCTURES_H_INCLUDED
