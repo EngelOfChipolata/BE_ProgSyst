@@ -63,6 +63,7 @@ typedef struct argsthreadecriture{
 typedef struct argsthreadlecture{
     BaL * boitealettres;
     repZone * repzoneaddr;
+    int flag;
     char * exist;
 } argThreadLecture;
 
