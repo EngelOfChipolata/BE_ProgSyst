@@ -95,15 +95,18 @@ void* Lecture_msg(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     #ifdef DEBUGRECV
     printf("[Lecture_msg] Lecture_msg a le mutex d'une boite à lettre\n");
     #endif
-
-    while (boite->nb_msg == 0){/*Fonction bloquante s'il n'y a pas de message*/
-        pthread_cond_wait(&(boite->var_cond_bal_empty), &(boite->mutex_bal));}
     }
+
+    while (*exist && boite->nb_msg == 0){/*Fonction bloquante s'il n'y a pas de message*/
+        pthread_cond_wait(&(boite->var_cond_bal_empty), &(boite->mutex_bal));}
+
 
     if (!*exist){
         #ifdef DEBUGRECV
         printf("[Lecture_msg] La bal n'existe plus je me suicide\n");
         #endif // DEBUGRECV
+
+        pthread_mutex_unlock(&(boite->mutex_bal));
         pthread_exit(NULL); /*Si la boite à lettre n'existe plus on se suicide*/
     }
 
@@ -113,7 +116,7 @@ void* Lecture_msg(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     printf("[Lecture_msg] Lecture_msg a lu le message : %s\n", message);
     #endif // DEBUGRECV
 
-    (boite->ilecture)--; /*On décrémente l'indice de lecture*/
+    boite->ilecture = (boite->ilecture + 1)%TAILLEBAL; /*On décrémente l'indice de lecture*/
     (boite->nb_msg)--; /*On décrémente le nombre de messages*/
     pthread_cond_signal(&(boite->var_cond_bal_full)); /*On réveille les Threads d'écriture en attente*/
     pthread_mutex_unlock(&(boite->mutex_bal)); /*On libère le mutex de la boite à lettre*/
@@ -121,11 +124,6 @@ void* Lecture_msg(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     #ifdef DEBUGRECV
     printf("[Lecture_msg] Lecture_msg a libéré la BaL");
     #endif // DEBUGRECV
-    /*On libère les variables dont on a plus besoin*/
-    free(boite);
-    free(exist);
-    boite = NULL;
-    exist = NULL;
 
     pthread_mutex_lock(&(zonerep->mutexrep)); /* On vérouille le mutex de la zone réponse */
 
@@ -134,7 +132,7 @@ void* Lecture_msg(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     #endif // DEBUGRECV
 
     zonerep->code_err = 0;
-    *zonerep->msg = message;
+    strcpy(zonerep->msg,message);
     zonerep->flag_rep = 1;
     pthread_cond_signal(&(zonerep->var_cond_rep));
     pthread_mutex_unlock(&(zonerep->mutexrep));
@@ -143,6 +141,7 @@ void* Lecture_msg(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     printf("[Lecture_msg] Lecture_msg a libéré la zone réponse");
     #endif // DEBUGRECV
 
+    pthread_exit(NULL);
 }
 
 
@@ -342,11 +341,6 @@ void* Gestionnaire (void *arg){
                     break; /*Fin du switch*/
                 }
 
-                indexdest = findid(annuaire, *nbthreadmax, _zoneRequete.userid1); /*On cherche l'identifiant destinataire dans l'annuaire*/
-                if (indexdest == -1){ /*Si il n'y est pas on renvoie une erreur*/
-                    writerepcode(zone_reponse, -4);
-                    break; /*Fin du switch*/
-
                 if ((arglecture_msg = calloc(1, sizeof(argThreadLecture)))==NULL){ /*On alloue une zone pour passer les arguments au thread*/
                     writerepcode(zone_reponse, -5); /*Si on y arrive pas on écrit une erreur*/
                     break; /*Fin du switch*/
@@ -438,4 +432,4 @@ void* Gestionnaire (void *arg){
     }
 
 }
-}
+
