@@ -319,7 +319,67 @@ int desaboMsg(int id){
     return coderet; /*On retourne directement le code retour*/
     }
 
-    int finMsg(int force)
+
+
+
+
+
+
+
+
+int finMsg(int force)
     {
-        return 0;
+    repZone *my_zone_reponse;
+    int coderet;
+
+    pthread_mutex_lock(&(_idgest.mutexgest)); /*On prend le mutex de l'id du gestionnaire (pour éviter qu'un autre thread lance une requête pendant la terminaison)*/
+
+
+    if (_idgest.idgest == 0){ /*Si le gestionnaire n'est pas lancé on libère le mutex et on renvoie une erreur*/
+        pthread_mutex_unlock(&(_idgest.mutexgest));
+        return -1;
+    }
+
+    my_zone_reponse = calloc(1, sizeof(repZone)); /*On créé la zone réponse de cette session*/ /*TODO : gérer les erreurs*/
+
+
+    pthread_mutex_lock(&(_zoneRequete.mutexreq));
+    switch (force){
+    case 0: /*Si le flag de terminaison forcé n'est PAS levé on écrit le code requête 6*/
+        _zoneRequete.numrequest = 6;
+        break;
+    case 1: /*Si le flag de terminaison forcé est levé on écrit le code requête 7*/
+        _zoneRequete.numrequest = 7;
+        break;
+    default:
+        /*TODO : code erreur + libération zone réponse*/
+        break;
+    }
+    _zoneRequete.repzoneaddr = my_zone_reponse;
+    _zoneRequete.flag_req = 1;
+    pthread_cond_signal(&(_zoneRequete.var_cond_req_empty)); /*On réveille le thread gestionnaire s'il est en attente*/
+    pthread_mutex_unlock(&(_zoneRequete.mutexreq)); /*On libère le mutex de requête*/
+
+
+    pthread_mutex_lock(&(my_zone_reponse->mutexrep)); /*On prend le mutex de réponse*/
+#ifdef DEBUGDESABO
+    printf("[finMsg] a le mutex de sa réponse : %d\n", my_zone_reponse);
+#endif
+
+    while(my_zone_reponse->flag_rep == 0) /*Si il n'y a pas de réponse on libère le mutex et on attend*/
+    {
+        pthread_cond_wait(&(my_zone_reponse->var_cond_rep), &(my_zone_reponse->mutexrep));
+    }
+    coderet = my_zone_reponse->code_err;
+
+    pthread_mutex_unlock(&(my_zone_reponse->mutexrep));
+    free(my_zone_reponse);
+    my_zone_reponse = NULL;
+
+    if (coderet==0){ /*Si le thread gestionnaire s'est bel et bien arreté*/
+        _idgest.idgest = 0; /*On renseigne la non existance du thread gestionnaire*/
+    }
+
+    pthread_mutex_unlock(&(_idgest.mutexgest)); /*On libère le mutex de l'id du gestionnaire*/
+    return coderet;
     }

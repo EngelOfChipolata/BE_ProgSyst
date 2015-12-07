@@ -25,7 +25,7 @@ void* ecriture (void * arg)
         #ifdef DEBUG
         printf("[User] Envoi d'un message : %s\n", my_message);
         #endif
-		sendMsg(my_message, 666, 999);
+		printf("%d\n",sendMsg(my_message, 666, 999));
 		i++;
 		sleep(2);				/*On attend un peu*/
 	}
@@ -44,8 +44,8 @@ void* affichage (void *arg)
     #ifdef DEBUG
     printf("affichage s'est abonné, code retour : %d\n", debug);
     #endif
-    sleep(5);
-    desaboMsg(666);
+    sleep(30);
+    finMsg(1);
 	while(1){
         //recvMsg(0, 666, my_message);
 

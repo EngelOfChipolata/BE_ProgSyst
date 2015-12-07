@@ -44,6 +44,7 @@ void* Ecriture(void * arg){  /*Thread lancé pour l'écriture d'un message*/
         #ifdef DEBUGECRITURE
         printf("[Ecriture] La bal n'existe plus je me suicide\n");
         #endif // DEBUGECRITURE
+        pthread_mutex_unlock(&(boite->mutex_bal));
         pthread_exit(NULL); /*Si la boite à lettre n'existe plus on se suicide*/
     }
 
@@ -87,6 +88,21 @@ void writerepcode(repZone* zone_reponse, int errno){ /*Fonction qui écrit errno
     zone_reponse->flag_rep = 1;
     pthread_cond_signal(&(zone_reponse->var_cond_rep));
     pthread_mutex_unlock(&(zone_reponse->mutexrep));
+
+}
+
+void desaboid(Annuaire* annuaire, int index){
+    pthread_mutex_lock(&(annuaire[index].bal->mutex_bal)); /*On s'assure que personne n'utilise la boite à lettre pendant le désabonnement*/
+    *(annuaire[index].exist) = 0; /*On passe la flag d'existance à 0*/
+    pthread_cond_broadcast(&(annuaire[index].bal->var_cond_bal_empty)); /*On réveille tous les threads lecteurs en attente de cette boite à lettres pour qu'ils testent le flag d'existance et se suicident*/
+    pthread_cond_broadcast(&(annuaire[index].bal->var_cond_bal_full)); /*On réveille tous les threads écrivains en attente de cette boite à lettres pour qu'ils testent le flag d'existance et se suicident*/
+    pthread_mutex_unlock(&(annuaire[index].bal->mutex_bal)); /*On libère le mutex de la boite à lettre avant de libérer la mémoire*/
+
+    free(annuaire[index].bal);
+    annuaire[index].bal = NULL;
+
+    annuaire[index].idThread = 0; /*On efface l'entrée dans l'annuaire*/
+    annuaire[index].id = 0;
 
 }
 
@@ -271,20 +287,9 @@ void* Gestionnaire (void *arg){
                     break;
                 }
 
-                pthread_mutex_lock(&(annuaire[indexsource].bal->mutex_bal)); /*On s'assure que personne n'utilise la boite à lettre pendant le désabonnement*/
-                *(annuaire[indexsource].exist) = 0; /*On passe la flag d'existance à 0*/
-                pthread_cond_broadcast(&(annuaire[indexsource].bal->var_cond_bal_empty)); /*On réveille tous les threads lecteurs en attente de cette boite à lettres pour qu'ils testent le flag d'existance et se suicident*/
-                pthread_cond_broadcast(&(annuaire[indexsource].bal->var_cond_bal_full)); /*On réveille tous les threads écrivains en attente de cette boite à lettres pour qu'ils testent le flag d'existance et se suicident*/
-                pthread_mutex_unlock(&(annuaire[indexsource].bal->mutex_bal)); /*On libère le mutex de la boite à lettre avant de libérer la mémoire*/
-
-                free(annuaire[indexsource].bal);
-                annuaire[indexsource].bal = NULL;
-
-                annuaire[indexsource].idThread = 0; /*On efface l'entrée dans l'annuaire*/
-                annuaire[indexsource].id = 0;
+                desaboid(annuaire, indexsource); /*On désabonne l'identifiant*/
 
                 nbthreadabonne--; /*On décrémente le nombre de threads abonnés*/
-
                 #ifdef DEBUGDESABO
                 printf("[Gestionnaire] Désabonnement réussi \n");
                 #endif // DEBUGDESABO
@@ -296,13 +301,30 @@ void* Gestionnaire (void *arg){
             #ifdef DEBUGTERM
             printf("[Gestionnaire] Le gestionnaire va traiter une requête de terminaison douce\n");
             #endif // DEBUGTERM
+            if (nbthreadabonne != 0){ /*S'il reste des threads abonnés, on écrit une erreur*/
+                writerepcode(zone_reponse, -2);
+                break;
+            }
 
-
+            writerepcode(zone_reponse, 0); /*On écrit le code retour 0*/
+            pthread_exit(NULL); /*On termine le gestionnaire*/
             break;
+
             case 7:
+            #ifdef DEBUGTERM
+            printf("[Gestionnaire] Le gestionnaire va traiter une requete de terminaison forcée \n");
+            #endif // DEBUGTERM
+
+            for (i = 0; i<*nbthreadmax; i++){ /*On parcourt l'annuaire en quete des abonnés*/
+                if(annuaire[i].id != 0){ /*On désabonne chaque abonné restant*/
+                    desaboid(annuaire, i);
+                    nbthreadabonne--;
+                }
+            }
+
+            writerepcode(zone_reponse, 0);
+            pthread_exit(NULL);
             break;
-
-
         }
 
         _zoneRequete.flag_req = 0; /*On libère le mutex de la requête et on envoie un signal réveillant les thread en attente d'écriture d'une requête*/
