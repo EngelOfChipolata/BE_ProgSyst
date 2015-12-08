@@ -5,10 +5,10 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
-#define DEBUGGEST
-#define DEBUGECRITURE
-#define DEBUGRECV
-#define DEBUGDESABO
+//#define DEBUGGEST
+//#define DEBUGECRITURE
+//#define DEBUGRECV
+//#define DEBUGDESABO
 
 
 
@@ -23,7 +23,7 @@ void* Ecriture(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     strcpy(message, my_args->message);
     char * exist = my_args->exist; /*Mais aussi le flag d'existence !*/
 
-    free(my_args);  /*On libère la zone utilisée pour passer les arguments*/
+    //free(my_args);  /*On libère la zone utilisée pour passer les arguments*/
     my_args = NULL;
 
     #ifdef DEBUGECRITURE
@@ -86,7 +86,7 @@ void* Lecture_msg(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     char message[TAILLEMAX];  /*Message à lire que l'on stockera dans cette varible locale*/
     int nb_msg; /*nombre message dans la Bal*/
 
-    free(my_args);  /*On libère la zone utilisée pour passer les arguments*/
+    //free(my_args);  /*On libère la zone utilisée pour passer les arguments*/
     my_args = NULL;
 
     #ifdef DEBUGRECV
@@ -136,13 +136,13 @@ void* Lecture_msg(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     pthread_mutex_unlock(&(boite->mutex_bal)); /*On libère le mutex de la boite à lettre*/
 
     #ifdef DEBUGRECV
-    printf("[Lecture_msg] Lecture_msg a libéré la BaL");
+    printf("[Lecture_msg] Lecture_msg a libéré la BaL\n");
     #endif // DEBUGRECV
 
     pthread_mutex_lock(&(zonerep->mutexrep)); /* On vérouille le mutex de la zone réponse */
 
     #ifdef DEBUGRECV
-    printf("[Lecture_msg] Lecture_msg a vérouillé la zone réponse");
+    printf("[Lecture_msg] Lecture_msg a vérouillé la zone réponse\n");
     #endif // DEBUGRECV
 
     if (flag == 0) {
@@ -317,7 +317,7 @@ void* Gestionnaire (void *arg){
                             #ifdef DEBUGECRITURE
                             printf("Le gestionnaire a écrit les arguments et va lancé le thread d'écriture\n");
                             #endif // DEBUGECRITURE
-                            if (pthread_create(&idthreadlance, NULL, Ecriture, argecriture) != 0){/*Création du thread d'écriture*/
+                            if (pthread_create(&idthreadlance, &attributes, Ecriture, argecriture) != 0){/*Création du thread d'écriture*/
                                 free(argecriture); /*Si il y a eu un problème lors de la création du thread on libère la zone des arguments et on écrit un erreur*/
                                 argecriture = NULL;
                                 writerepcode(zone_reponse, -6);

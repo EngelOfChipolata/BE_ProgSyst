@@ -17,3 +17,5 @@
 -Mettre la priorité des threads écriture/lecture sur FIFO et pitetre ça va marcher
 
 -Passer la zone réponse dans la requête à CHAQUE fonction.
+
+*******SUR LE RAPPORT FINAL : RecvMsg à changé c'est plus char ** message c'est juste char * message

@@ -8,10 +8,10 @@
 #include "structures.h"
 #include "string.h"
 
-#define DEBUGABO
-#define DEBUGSEND
-#define DEBUGRECV
-#define DEBUGDESABO
+//#define DEBUGABO
+//#define DEBUGSEND
+//#define DEBUGRECV
+//#define DEBUGDESABO
 
 int idgestlaunched()  /*Fonction qui vérifie si le thread est lancé renvoie 0 si le thread gestionnaire n'est pas lancé*/
 {
@@ -180,10 +180,11 @@ int sendMsg(char * message, int dest_id, int source_id)
     return coderet;
 }
 
-int recvMsg(int flag, int id, char ** message)
+int recvMsg(int flag, int id, char * message)
 {
     repZone *my_zone_reponse;
     int coderet;
+    const char getmessage[TAILLEMAX];
 
 
     if (!idgestlaunched())  /*On teste si le thread gesitionnaire est bien lancé*/
@@ -200,24 +201,13 @@ int recvMsg(int flag, int id, char ** message)
     /*Sinon on écrit la requête de lecture de message*/
     if(flag==0)
     {
-        _zoneRequete.numrequest = 3; /*La requête est une lecture*/
-        _zoneRequete.userid1 = id; /*On renseigne le destinataire*/
-        _zoneRequete.id_thread = pthread_self();/*On renseigne l'id du thread emetteur*/
-        _zoneRequete.flag_req = 1; /*Il y a maintenant une requête à lire*/
-        _zoneRequete.repzoneaddr = my_zone_reponse; /*On lui passe la zone réponse*/
-        pthread_cond_signal(&(_zoneRequete.var_cond_req_empty)); /*On réveille le thread gestionnaire s'il est en attente*/
-        pthread_mutex_unlock(&(_zoneRequete.mutexreq)); /*On libère le mutex*/
+        _zoneRequete.numrequest = 3; /*La requête est une lecture de message*/
     }
     else if (flag==1)
     {
-        _zoneRequete.numrequest = 4; /*La requête est une lecture*/
-        _zoneRequete.userid1 = id; /*On renseigne le destinataire*/
-        _zoneRequete.id_thread = pthread_self();/*On renseigne l'id du thread emetteur*/
-        _zoneRequete.flag_req = 1; /*Il y a maintenant une requête à lire*/
-        _zoneRequete.repzoneaddr = my_zone_reponse; /*On lui passe la zone réponse*/
-        pthread_cond_signal(&(_zoneRequete.var_cond_req_empty)); /*On réveille le thread gestionnaire s'il est en attente*/
-        pthread_mutex_unlock(&(_zoneRequete.mutexreq)); /*On libère le mutex*/
+        _zoneRequete.numrequest = 4; /*La requête est une consultation du nombre de messages*/
     }
+
 
     else    /*Si flag != 1 ou 1*/
     {
@@ -225,6 +215,12 @@ int recvMsg(int flag, int id, char ** message)
         my_zone_reponse = NULL;
         return -4;
     }
+    _zoneRequete.userid1 = id; /*On renseigne le destinataire*/
+    _zoneRequete.id_thread = pthread_self();/*On renseigne l'id du thread emetteur*/
+    _zoneRequete.flag_req = 1; /*Il y a maintenant une requête à lire*/
+    _zoneRequete.repzoneaddr = my_zone_reponse; /*On lui passe la zone réponse*/
+    pthread_cond_signal(&(_zoneRequete.var_cond_req_empty)); /*On réveille le thread gestionnaire s'il est en attente*/
+    pthread_mutex_unlock(&(_zoneRequete.mutexreq)); /*On libère le mutex*/
 
     pthread_mutex_lock(&(my_zone_reponse->mutexrep));
 #ifdef DEBUGRECV
@@ -240,29 +236,23 @@ int recvMsg(int flag, int id, char ** message)
     printf("[rcvMsg] a une réponse : %d\n", coderet);
 #endif
 
-    if (flag==0)
-    {
-        switch (coderet)
-        {
-        case 0 :
-            *message = my_zone_reponse->msg;
-            break;
-        default :
-            break;
-        }
-        return coderet;
-    }
+    if (flag==0){
+        if (coderet == 0){
 
-    else if (flag == 1)
-    {
-        switch (coderet)
-        {
-        case 0 :
-            return my_zone_reponse->nb_msg;
-        default :
-            return coderet;
+        strcpy(getmessage, my_zone_reponse->msg);
+#ifdef DEBUGRECV
+    printf("[rcvMsg] On va écrire %s\n",my_zone_reponse->msg);
+#endif
+
+        strcpy(message, getmessage);
         }
     }
+    if (flag == 1){
+        if (coderet == 0){
+            coderet = my_zone_reponse->nb_msg;
+        }
+    }
+    return coderet;
 }
 
 int desaboMsg(int id){

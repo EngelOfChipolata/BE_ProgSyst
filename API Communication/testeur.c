@@ -34,7 +34,7 @@ void* ecriture (void * arg)
 void* affichage (void *arg)
 {
     int debug;
-    char* my_message[20];
+    char my_message[20];
 
 
     #ifdef DEBUG
@@ -44,8 +44,13 @@ void* affichage (void *arg)
     #ifdef DEBUG
     printf("affichage s'est abonné, code retour : %d\n", debug);
     #endif
-    //sleep(30);
+    sleep(10);
     //finMsg(1);
+    while ((debug = recvMsg(1, 666, NULL)) != 10){
+        printf("Vous avez %d messages \n", debug);
+        sleep(1);
+    };
+    sleep(15);
 	while(1){
         recvMsg(0, 666, my_message);
         printf("%s\n",my_message);
