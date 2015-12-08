@@ -44,14 +44,15 @@ void* affichage (void *arg)
     #ifdef DEBUG
     printf("affichage s'est abonné, code retour : %d\n", debug);
     #endif
-    sleep(30);
-    finMsg(1);
+    //sleep(30);
+    //finMsg(1);
 	while(1){
-        //recvMsg(0, 666, my_message);
+        recvMsg(0, 666, my_message);
+        printf("%s\n",my_message);
 
 		sleep(1);				/*On attend un peu*/
 	}
-	pthread_exit(& my_message);
+	pthread_exit(NULL);
 }
 
 void* Supervision (void *arg)

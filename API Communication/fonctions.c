@@ -228,7 +228,7 @@ int recvMsg(int flag, int id, char ** message)
 
     pthread_mutex_lock(&(my_zone_reponse->mutexrep));
 #ifdef DEBUGRECV
-    printf("[sendMsg] a le mutex de sa réponse : %d\n", my_zone_reponse);
+    printf("[rcvMsg] a le mutex de sa réponse : %d\n", my_zone_reponse);
 #endif
 
     while(my_zone_reponse->flag_rep == 0) /*Si il n'y a pas de réponse on libère le mutex et on attend*/
@@ -237,7 +237,7 @@ int recvMsg(int flag, int id, char ** message)
     }
     coderet = my_zone_reponse->code_err;
 #ifdef DEBUGRECV
-    printf("[sendMsg] a une réponse : %d\n", coderet);
+    printf("[rcvMsg] a une réponse : %d\n", coderet);
 #endif
 
     if (flag==0)

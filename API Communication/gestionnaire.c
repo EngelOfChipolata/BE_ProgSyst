@@ -54,7 +54,7 @@ void* Ecriture(void * arg){  /*Thread lancé pour l'écriture d'un message*/
 
     strcpy(boite->msgs[boite->iecriture], message); /*On écrit le message*/
 
-    (boite->iecriture)++; /*On incrémente l'indice d'écriture*/
+    boite->iecriture = (boite->iecriture + 1)%TAILLEBAL ; /*On incrémente l'indice d'écriture*/
 
     (boite->nb_msg)++; /*On incrémente le nombre de message dans la boite à lettre*/
 
