@@ -23,7 +23,7 @@ void* Ecriture(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     strcpy(message, my_args->message);
     char * exist = my_args->exist; /*Mais aussi le flag d'existence !*/
 
-    //free(my_args);  /*On libère la zone utilisée pour passer les arguments*/
+    free(my_args);  /*On libère la zone utilisée pour passer les arguments*/
     my_args = NULL;
 
     #ifdef DEBUGECRITURE
@@ -31,21 +31,21 @@ void* Ecriture(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     #endif
 
 
-    if (*exist){
+    if (*exist){ /*Si la boite à lettre existe*/
     pthread_mutex_lock(&(boite->mutex_bal));  /*On vérouille le mutex de la boite à lettre à écrire*/
     #ifdef DEBUGECRITURE
     printf("[Ecriture] Ecriture a le mutex d'une boite à lettre\n");
     #endif
 
-    while (*exist && boite->nb_msg >= TAILLEBAL){ /*Si la boite à lettre est pleine on attend*/
+    while (*exist && boite->nb_msg >= TAILLEBAL){ /*Si la boite à lettre est pleine et qu'elle existe on attend*/
         pthread_cond_wait(&(boite->var_cond_bal_full), &(boite->mutex_bal));
     }
-    if (!*exist){
+    if (!*exist){ /*Si le réveil à été provoqué car la boite à lettre n'existe plus*/
         #ifdef DEBUGECRITURE
         printf("[Ecriture] La bal n'existe plus je me suicide\n");
         #endif // DEBUGECRITURE
         pthread_mutex_unlock(&(boite->mutex_bal));
-        pthread_exit(NULL); /*Si la boite à lettre n'existe plus on se suicide*/
+        pthread_exit(NULL); /*On se suicide*/
     }
 
     #ifdef DEBUGECRITURE
@@ -86,7 +86,7 @@ void* Lecture_msg(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     char message[TAILLEMAX];  /*Message à lire que l'on stockera dans cette varible locale*/
     int nb_msg; /*nombre message dans la Bal*/
 
-    //free(my_args);  /*On libère la zone utilisée pour passer les arguments*/
+    free(my_args);  /*On libère la zone utilisée pour passer les arguments*/
     my_args = NULL;
 
     #ifdef DEBUGRECV
@@ -100,8 +100,9 @@ void* Lecture_msg(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     #endif
     }
 
-    while (*exist && boite->nb_msg == 0 && flag==0){/*Fonction bloquante s'il n'y a pas de message et qu'on souhaite lire un message*/
-        pthread_cond_wait(&(boite->var_cond_bal_empty), &(boite->mutex_bal));}
+    while (*exist && boite->nb_msg == 0 && flag==0){/*Si on demande à lire un message (bloquant) qu'il n'y en a pas on attend*/
+        pthread_cond_wait(&(boite->var_cond_bal_empty), &(boite->mutex_bal));
+    }
 
 
     if (!*exist){
@@ -146,7 +147,6 @@ void* Lecture_msg(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     #endif // DEBUGRECV
 
     if (flag == 0) {
-        zonerep->code_err = 0;
         strcpy(zonerep->msg,message);
     }
     else if (flag == 1) {
@@ -213,7 +213,7 @@ void* Gestionnaire (void *arg){
     int indexsource = 0;
     argThreadEcriture * argecriture; /*Pour passer des arguments aux threads d'écriture*/
     argThreadLecture * arglecture_msg; /*Pour passer des arguments aux threads de lecture de message*/
-    argThreadLecture * arglecture_nb; /*Pour passer des arguments aux threads de lecture du nombre de messages*/
+
 
     pthread_attr_t attributes; /*Pour passer les attributs aux threads d'écriture et de lecture*/
 
@@ -245,7 +245,7 @@ void* Gestionnaire (void *arg){
         printf("[Gestionnaire] Le gestionnaire est réveillé et va traiter la requête\nLa requête est : %d\n", _zoneRequete.numrequest);
         #endif // DEBUGGEST
         zone_reponse = _zoneRequete.repzoneaddr; /*On lit et on stocke la zone dans laquelle on doit répondre a cette requête*/
-        switch(_zoneRequete.numrequest){
+        switch(_zoneRequete.numrequest){ /*On traite différemment suivant les requêtes*/
             case 1: /*abonnement*/
                 #ifdef DEBUGGEST
                 printf("[Gestionnaire] Le gestionnaire va traiter la requête abo\n");
@@ -286,7 +286,7 @@ void* Gestionnaire (void *arg){
                         writerepcode(zone_reponse, 0); /*Tout s'est bien passé on écrit la réponse 0*/
                         break; /*Nul besoin de parcourir le reste de l'annuaire*/
                     }
-                }break;
+                }break; /*Fin de l'abonnement*/
 
             case 2: /*envoi de message*/
                 #ifdef DEBUGECRITURE
@@ -320,7 +320,7 @@ void* Gestionnaire (void *arg){
                             if (pthread_create(&idthreadlance, &attributes, Ecriture, argecriture) != 0){/*Création du thread d'écriture*/
                                 free(argecriture); /*Si il y a eu un problème lors de la création du thread on libère la zone des arguments et on écrit un erreur*/
                                 argecriture = NULL;
-                                writerepcode(zone_reponse, -6);
+                                writerepcode(zone_reponse, -5);
                                 break; /*On sort de la boucle*/
                             }
                         }
@@ -347,7 +347,7 @@ void* Gestionnaire (void *arg){
                 if (pthread_create(&idthreadlance, &attributes, Ecriture, argecriture) != 0){/*Création du thread d'écriture*/
                     free(argecriture); /*Si il y a eu un problème lors de la création du thread on libère la zone des arguments et on écrit un erreur*/
                     argecriture = NULL;
-                    writerepcode(zone_reponse, -6);
+                    writerepcode(zone_reponse, -5);
                     break; /*Fin du switch*/
                 }
 
@@ -358,14 +358,14 @@ void* Gestionnaire (void *arg){
                 argecriture = NULL; /*Il faut etre sur de ne pas y refaire référence*/
                 writerepcode(zone_reponse, 0); /*tout s'est bien passé on écrit 0*/
 
-                break; /*Fin du switch*/
+                break; /*Fin de l'envoi*/
 
-            case 3:
+            case 3: /*Reception de message*/
                 #ifdef DEBUGRECV
                 printf("Le gestionnaire va traiter la requête de lecture de message\n");
                 #endif
 
-                indexsource = findid(annuaire, *nbthreadmax, _zoneRequete.userid1); /*On cherche l'identifiant de la source dans l'annuaire*/
+                indexsource = findid(annuaire, *nbthreadmax, _zoneRequete.userid1); /*On cherche l'identifiant dans l'annuaire*/
 
                 if (indexsource == -1){ /*Si il n'y est pas on écrit une erreur*/
                     writerepcode(zone_reponse, -2);
@@ -392,7 +392,7 @@ void* Gestionnaire (void *arg){
                 if (pthread_create(&idthreadlance, &attributes, Lecture_msg, arglecture_msg) != 0){/*Création du thread d'écriture*/
                     free(arglecture_msg); /*Si il y a eu un problème lors de la création du thread on libère la zone des arguments et on écrit un erreur*/
                     arglecture_msg = NULL;
-                    writerepcode(zone_reponse, -6);
+                    writerepcode(zone_reponse, -5);
                     break; /*Fin du switch*/
                 }
 
@@ -401,9 +401,9 @@ void* Gestionnaire (void *arg){
                 #endif
 
                 arglecture_msg = NULL; /*Il faut etre sur de ne pas y refaire référence*/
-                break;
+                break; /*Fin de la reception*/
 
-            case 4:
+            case 4: /*Demande du nombre de message*/
 
                 #ifdef DEBUGRECV
                 printf("Le gestionnaire va traiter la requête de lecture de nombre de message\n");
@@ -436,7 +436,7 @@ void* Gestionnaire (void *arg){
                 if (pthread_create(&idthreadlance, &attributes, Lecture_msg, arglecture_msg) != 0){/*Création du thread d'écriture*/
                     free(arglecture_msg); /*Si il y a eu un problème lors de la création du thread on libère la zone des arguments et on écrit un erreur*/
                     arglecture_msg = NULL;
-                    writerepcode(zone_reponse, -6);
+                    writerepcode(zone_reponse, -5);
                     break; /*Fin du switch*/
                 }
 
@@ -445,9 +445,9 @@ void* Gestionnaire (void *arg){
                 #endif
 
                 arglecture_msg = NULL; /*Il faut etre sur de ne pas y refaire référence*/
-                break;
+                break; /*Fin de nombre de message*/
 
-            case 5:
+            case 5: /*Désabonnment*/
                 #ifdef DEBUGDESABO
                 printf("Le gestionnaire va traiter une reqûete de désabonnement\n");
                 #endif // DEBUGDESABO
@@ -471,9 +471,9 @@ void* Gestionnaire (void *arg){
                 #endif // DEBUGDESABO
 
                 writerepcode(zone_reponse, 0); /*Tout s'est bien passé on écrit le code retour 0 dans la zone de réponse*/
-                break;
+                break; /*Fin désabo*/
 
-            case 6:
+            case 6: /*Terminaison douce*/
             #ifdef DEBUGTERM
             printf("[Gestionnaire] Le gestionnaire va traiter une requête de terminaison douce\n");
             #endif // DEBUGTERM
@@ -484,9 +484,9 @@ void* Gestionnaire (void *arg){
 
             writerepcode(zone_reponse, 0); /*On écrit le code retour 0*/
             pthread_exit(NULL); /*On termine le gestionnaire*/
-            break;
+            break; /*Fin terminaison douce*/
 
-            case 7:
+            case 7:/*Terminaison brute*/
             #ifdef DEBUGTERM
             printf("[Gestionnaire] Le gestionnaire va traiter une requete de terminaison forcée \n");
             #endif // DEBUGTERM
@@ -500,8 +500,8 @@ void* Gestionnaire (void *arg){
 
             writerepcode(zone_reponse, 0);
             pthread_exit(NULL);
-            break;
-        }
+            break;/*fin termaison brute*/
+        }/*Fin du switch*/
 
         _zoneRequete.flag_req = 0; /*On libère le mutex de la requête et on envoie un signal réveillant les thread en attente d'écriture d'une requête*/
         pthread_cond_signal(&(_zoneRequete.var_cond_req_full));

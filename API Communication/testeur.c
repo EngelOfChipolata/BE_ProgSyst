@@ -8,7 +8,7 @@
 #include "ctype.h"
 #include "apicom.h"
 
-#define DEBUG
+//#define DEBUG
 
 
 
