@@ -202,7 +202,14 @@ int recvMsg(int flag, int id, char * message)
 
     if ((my_zone_reponse = calloc(1, sizeof(repZone))) == NULL) return -5; /*On créé la zone réponse de cette session*/
 
+    #ifdef DEBUGRECV
+    printf("[rcvMsg] veut le mutex requete\n");
+    #endif
+
     pthread_mutex_lock(&(_zoneRequete.mutexreq)); /*On prend le mutex de la requête*/
+    #ifdef DEBUGRECV
+    printf("[rcvMsg] a pris le mutex de requête\n");
+    #endif
 
     while(_zoneRequete.flag_req == 1)  /*Si une requête est déjà écrite*/
     {

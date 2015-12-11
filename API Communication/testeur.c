@@ -10,51 +10,55 @@
 
 //#define DEBUG
 
+int _flagsusp = 0;
+int _flagstop = 0;
 
 
 void* ecriture (void * arg)
 {
     int i=0;
     char my_message[20];
-    aboMsg(999);
-    aboMsg(777);
-
+    if (aboMsg(999) != 0){
+        printf("Erreur lors de l'abonnement du thread d'écriture\n");
+        pthread_exit(NULL);
+    };
 	while(1){
-
+        if (_flagstop){
+            desaboMsg(999);
+            printf("Arrêt de la tâche d'écriture\n");
+            pthread_exit(NULL);
+        }
         sprintf(my_message, "Message n°%d", i);
-        #ifdef DEBUG
-        printf("[User] Envoi d'un message : %s\n", my_message);
-        #endif
-		printf("%d\n",sendMsg(my_message, 666, 999));
+		sendMsg(my_message, 666, 999);
 		i++;
-		sleep(2);				/*On attend un peu*/
+		sleep(1);				/*On attend un peu*/
 	}
 }
 
 void* affichage (void *arg)
 {
-    int debug;
-    char my_message[20];
+    char my_message[60];
 
 
     #ifdef DEBUG
     printf("affichage va s'abonner\n ");
     #endif
-    debug = aboMsg(666);
-    #ifdef DEBUG
-    printf("affichage s'est abonné, code retour : %d\n", debug);
-    #endif
-    sleep(10);
-    //finMsg(1);
-    while ((debug = recvMsg(1, 666, NULL)) != 10){
-        printf("Vous avez %d messages \n", debug);
-        sleep(1);
-    };
-    sleep(15);
+    if (aboMsg(666) != 0){
+        printf("Erreur lors de l'abonnement du thread affichage\n");
+        pthread_exit(NULL);
+    }
+
 	while(1){
+        while (_flagsusp == 1){
+            sleep(2);
+        }
+        if (_flagstop && recvMsg(1, 666, NULL) == 0){
+            printf("Arrêt de la tâche de lecture\n");
+            desaboMsg(666);
+            pthread_exit(NULL);
+        }
         recvMsg(0, 666, my_message);
         printf("%s\n",my_message);
-
 		sleep(1);				/*On attend un peu*/
 	}
 	pthread_exit(NULL);
@@ -62,7 +66,6 @@ void* affichage (void *arg)
 
 void* Supervision (void *arg)
 {
-#ifdef Supervision
 	char command;
 	while(1){
 		getchar(); /*On attend l'appuie sur la touche entrée*/
@@ -72,27 +75,19 @@ void* Supervision (void *arg)
 		if (command=='Q'){		/*Si le caractère est Q*/
 			_flagsusp = 0;		/*On libère le flag de suspension*/
 			_flagstop = 1;		/*On lève le flag d'arrêt*/
-			pthread_cond_signal(&_condEmptyBuffer);		/*On réveille les 2 tâches pour être sûr qu'elle testent le flagstop*/
-			pthread_cond_signal(&_condFullBuffer);
 			printf("Fin de la tâche de supervision\n");	/*On s'arrête*/
-			pthread_exit(0);
+			pthread_exit(NULL);
 		}
 		fflush(stdin);			/*On vide le buffer*/
 		_flagsusp = 0;			/*On descend le flag de suspension*/
-		pthread_cond_signal(&_condEmptyBuffer);	/*On réveille la tâche de lecture*/
 	}
-#endif // Supervision
 }
 
 int main (void)
 {
 	pthread_t idThreadEcriture, idThreadAffichage, idThreadSupervision; /*Déclaration des ID de threads*/
 
-	initMsg(3);
-
-    #ifdef DEBUG
-    printf("hey salut on va créé les threads\n");
-    #endif
+	initMsg(2);
 
 	if (pthread_create(&idThreadAffichage, NULL, affichage, NULL) != 0){ 	/*Création du thread d'affichage*/
 		printf("Erreur Création thread d'affichage\n");
@@ -105,14 +100,14 @@ int main (void)
 	}
 
 
-	//if (pthread_create(&idThreadSupervision, NULL, Supervision, NULL) != 0){ /*Création de la tâche de supervision*/
-		//printf("Erreur création thread de supervision\n");
-		//exit(1);
-	//}
+	if (pthread_create(&idThreadSupervision, NULL, Supervision, NULL) != 0){ /*Création de la tâche de supervision*/
+		printf("Erreur création thread de supervision\n");
+		exit(1);
+	}
 
 	pthread_join(idThreadEcriture, NULL);					/*On attend que les threads se terminent*/
 	pthread_join(idThreadAffichage, NULL);
-	//pthread_join(idThreadSupervision, NULL);
+	pthread_join(idThreadSupervision, NULL);
 
 	printf("Fin main\n");
 

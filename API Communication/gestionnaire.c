@@ -11,6 +11,16 @@
 //#define DEBUGDESABO
 
 
+void writerepcode(repZone* zone_reponse, int errno){ /*Fonction qui écrit errno dans la zone réponse passé en argument (en gérant le mutex et la var. cond.)*/
+    pthread_mutex_lock(&(zone_reponse->mutexrep));
+    zone_reponse->code_err = errno;
+    zone_reponse->flag_rep = 1;
+    pthread_cond_signal(&(zone_reponse->var_cond_rep));
+    pthread_mutex_unlock(&(zone_reponse->mutexrep));
+
+}
+
+
 
 void* Ecriture(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     #ifdef DEBUGECRITURE
@@ -90,15 +100,21 @@ void* Lecture_msg(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     my_args = NULL;
 
     #ifdef DEBUGRECV
-    printf("[Lecture_msg] Arguments libérés\n");
+    printf("[Lecture_msg] Arguments libérés, Bal : %d\n", boite);
     #endif
 
-    if(*exist){
+    if(!*exist){
+    #ifdef DEBUGRECV
+    printf("[Lecture_msg] La boite à lettres n'existe plus\n");
+    #endif
+
+    writerepcode(zonerep, -2);
+    pthread_exit(NULL);
+    }
     pthread_mutex_lock(&(boite->mutex_bal));  /*On vérouille le mutex de la boite à lettre à écrire*/
     #ifdef DEBUGRECV
     printf("[Lecture_msg] Lecture_msg a le mutex d'une boite à lettre\n");
     #endif
-    }
 
     while (*exist && boite->nb_msg == 0 && flag==0){/*Si on demande à lire un message (bloquant) qu'il n'y en a pas on attend*/
         pthread_cond_wait(&(boite->var_cond_bal_empty), &(boite->mutex_bal));
@@ -111,6 +127,7 @@ void* Lecture_msg(void * arg){  /*Thread lancé pour l'écriture d'un message*/
         #endif // DEBUGRECV
 
         pthread_mutex_unlock(&(boite->mutex_bal));
+        writerepcode(zonerep, -2);
         pthread_exit(NULL); /*Si la boite à lettre n'existe plus on se suicide*/
     }
 
@@ -165,6 +182,7 @@ void* Lecture_msg(void * arg){  /*Thread lancé pour l'écriture d'un message*/
 }
 
 
+
 int findid(Annuaire* annuaire,int tailleannuaire, int id){ /*Fonction qui parcourt l'annuaire et qui renvoie l'index de l'id demandé ou -1 si non trouvé*/
     int i;
     for (i =0; i<tailleannuaire; i++){
@@ -173,15 +191,6 @@ int findid(Annuaire* annuaire,int tailleannuaire, int id){ /*Fonction qui parcou
         }
     }
     return -1;
-}
-
-void writerepcode(repZone* zone_reponse, int errno){ /*Fonction qui écrit errno dans la zone réponse passé en argument (en gérant le mutex et la var. cond.)*/
-    pthread_mutex_lock(&(zone_reponse->mutexrep));
-    zone_reponse->code_err = errno;
-    zone_reponse->flag_rep = 1;
-    pthread_cond_signal(&(zone_reponse->var_cond_rep));
-    pthread_mutex_unlock(&(zone_reponse->mutexrep));
-
 }
 
 void desaboid(Annuaire* annuaire, int index){
@@ -276,6 +285,12 @@ void* Gestionnaire (void *arg){
                             annuaire[i].bal = NULL;
                             break;
                         }
+                        annuaire[i].bal->iecriture = 0; /*On initialise la boite à lettres*/
+                        annuaire[i].bal->ilecture = 0;
+                        annuaire[i].bal->mutex_bal = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+                        annuaire[i].bal->var_cond_bal_empty = (pthread_cond_t)PTHREAD_COND_INITIALIZER;
+                        annuaire[i].bal->var_cond_bal_full = (pthread_cond_t)PTHREAD_COND_INITIALIZER;
+
                         *(annuaire[i].exist) = 1;
                         annuaire[i].id = _zoneRequete.userid1; /*On écrit les informations dans l'annuaire*/
                         annuaire[i].idThread = _zoneRequete.id_thread;
@@ -380,7 +395,7 @@ void* Gestionnaire (void *arg){
                     writerepcode(zone_reponse, -5); /*Si on y arrive pas on écrit une erreur*/
                     break; /*Fin du switch*/
                 }
-                arglecture_msg->boitealettres = annuaire[indexdest].bal; /*On prépare les arguments a passer*/
+                arglecture_msg->boitealettres = annuaire[indexsource].bal; /*On prépare les arguments a passer*/
                 arglecture_msg->repzoneaddr = zone_reponse;
                 arglecture_msg->flag = 0;
                 arglecture_msg->exist = annuaire[indexsource].exist;
@@ -509,7 +524,7 @@ void* Gestionnaire (void *arg){
         #ifdef DEBUGGEST
         printf("[Gestionnaire]mutex requête libéré\n");
         for (i=0; i<*nbthreadmax; i++ ){
-            printf("[Annuaire] id : %d\tidthread : %d\n",annuaire[i].id, annuaire[i].idThread);
+            printf("[Annuaire] id : %d\tidthread : %d\tBaL : %d\n",annuaire[i].id, annuaire[i].idThread, annuaire[i].bal);
         }
         #endif
     }
