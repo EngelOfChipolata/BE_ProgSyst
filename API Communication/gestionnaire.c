@@ -82,7 +82,7 @@ void* Ecriture(void * arg){  /*Thread lancé pour l'écriture d'un message*/
     pthread_exit(NULL); /*On fini le thread*/
 }
 
-void* Lecture_msg(void * arg){  /*Thread lancé pour l'écriture d'un message*/
+void* Lecture_msg(void * arg){  /*Thread lancé pour la lecture d'un message*/
     #ifdef DEBUGRECV
     printf("[Lecture_msg] Thread lecture lancé \n");
     #endif
@@ -338,8 +338,11 @@ void* Gestionnaire (void *arg){
                                 writerepcode(zone_reponse, -5);
                                 break; /*On sort de la boucle*/
                             }
+                            argecriture = NULL; /*Il faut etre sur de ne pas y refaire référence*/
                         }
-                    }break; /*Fin du switch*/
+                    }
+                    writerepcode(zone_reponse, 0); /*tout s'est bien passé on écrit 0*/
+                    break; /*Fin du switch*/
                 }
 
                 indexdest = findid(annuaire, *nbthreadmax, _zoneRequete.userid1); /*On cherche l'identifiant destinataire dans l'annuaire*/
@@ -439,7 +442,7 @@ void* Gestionnaire (void *arg){
                     writerepcode(zone_reponse, -5); /*Si on y arrive pas on écrit une erreur*/
                     break; /*Fin du switch*/
                 }
-                arglecture_msg->boitealettres = annuaire[indexdest].bal; /*On prépare les arguments a passer*/
+                arglecture_msg->boitealettres = annuaire[indexsource].bal; /*On prépare les arguments a passer*/
                 arglecture_msg->repzoneaddr = zone_reponse;
                 arglecture_msg->flag = 1;
                 arglecture_msg->exist = annuaire[indexsource].exist;
