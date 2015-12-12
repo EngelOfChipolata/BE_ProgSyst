@@ -31,7 +31,7 @@ void* ecriture (void * arg)
         sprintf(my_message, "Message n°%d", i);
 		sendMsg(my_message, 666, 999);
 		i++;
-		sleep(1);				/*On attend un peu*/
+		sleep(2);				/*On attend un peu*/
 	}
 }
 

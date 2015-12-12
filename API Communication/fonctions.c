@@ -76,6 +76,8 @@ int aboMsg(int idabo)
     }
 
     if ((my_zone_reponse = calloc(1, sizeof(repZone)))==NULL) return -4; /*On alloue la zone de réponse*/
+    pthread_mutex_init( &(my_zone_reponse->mutexrep), NULL); /*On initialise le mutex*/
+    pthread_cond_init(&(my_zone_reponse->var_cond_rep), NULL); /*On initilaise la var. cond.*/
 
     pthread_mutex_lock(&(_zoneRequete.mutexreq)); /*On prend le mutex de la zone de requête*/
 #ifdef DEBUGABO
@@ -118,6 +120,10 @@ int aboMsg(int idabo)
     printf("aboMsg a une réponse : %d\n", coderet);
 #endif // DEBUGABO
     pthread_mutex_unlock(&(my_zone_reponse->mutexrep)); /*On libère le mutex de notre zone réponse*/
+
+    pthread_mutex_destroy(&(my_zone_reponse->mutexrep)); /*On détruit le mutex de lazone réponse*/
+    pthread_cond_destroy(&(my_zone_reponse->var_cond_rep)); /*On détruit la var.cond. de la zone réponse*/
+
     free(my_zone_reponse); /*On libère la zone réponse*/
     my_zone_reponse = NULL; /*Pour être sur de ne pas y retourner*/
 #ifdef DEBUGABO
@@ -141,6 +147,8 @@ int sendMsg(char * message, int dest_id, int source_id)
     }
 
     if ((my_zone_reponse = calloc(1, sizeof(repZone))) == NULL) return -5; /*On créé la zone réponse de cette session*/
+    pthread_mutex_init( &(my_zone_reponse->mutexrep), NULL); /*On initialise le mutex*/
+    pthread_cond_init(&(my_zone_reponse->var_cond_rep), NULL); /*On initilaise la var. cond.*/
 
     pthread_mutex_lock(&(_zoneRequete.mutexreq)); /*On prend le mutex de la zone requete*/
 
@@ -180,6 +188,9 @@ int sendMsg(char * message, int dest_id, int source_id)
 #endif
     pthread_mutex_unlock(&(my_zone_reponse->mutexrep)); /*On libère le mutex de la zone réponse*/
 
+    pthread_mutex_destroy(&(my_zone_reponse->mutexrep)); /*On détruit le mutex de lazone réponse*/
+    pthread_cond_destroy(&(my_zone_reponse->var_cond_rep)); /*On détruit la var.cond. de la zone réponse*/
+
     free(my_zone_reponse); /*On libère la zone réponse*/
     my_zone_reponse = NULL;
     return coderet; /*On retourne le code retour*/
@@ -201,6 +212,8 @@ int recvMsg(int flag, int id, char * message)
     }
 
     if ((my_zone_reponse = calloc(1, sizeof(repZone))) == NULL) return -5; /*On créé la zone réponse de cette session*/
+    pthread_mutex_init( &(my_zone_reponse->mutexrep), NULL); /*On initialise le mutex*/
+    pthread_cond_init(&(my_zone_reponse->var_cond_rep), NULL); /*On initilaise la var. cond.*/
 
     #ifdef DEBUGRECV
     printf("[rcvMsg] veut le mutex requete\n");
@@ -247,6 +260,12 @@ int recvMsg(int flag, int id, char * message)
             coderet = my_zone_reponse->nb_msg; /*On se prépare à retourner le nombre de messages*/
         }
     }
+
+    pthread_mutex_destroy(&(my_zone_reponse->mutexrep)); /*On détruit le mutex de lazone réponse*/
+    pthread_cond_destroy(&(my_zone_reponse->var_cond_rep)); /*On détruit la var.cond. de la zone réponse*/
+
+    free(my_zone_reponse);
+    my_zone_reponse = NULL;
     return coderet; /*On retourne la valeur à l'utilisateur*/
 }
 
@@ -260,6 +279,8 @@ int desaboMsg(int id){
     }
 
     if ((my_zone_reponse = calloc(1, sizeof(repZone)))==NULL) return -4; /*On créé la zone réponse de cette session*/
+    pthread_mutex_init( &(my_zone_reponse->mutexrep), NULL); /*On initialise le mutex*/
+    pthread_cond_init(&(my_zone_reponse->var_cond_rep), NULL); /*On initilaise la var. cond.*/
 
     pthread_mutex_lock(&(_zoneRequete.mutexreq)); /*On prend le mutex de la zone requete*/
 
@@ -300,6 +321,9 @@ int desaboMsg(int id){
 #endif
     pthread_mutex_unlock(&(my_zone_reponse->mutexrep)); /*On libère le mutex*/
 
+    pthread_mutex_destroy(&(my_zone_reponse->mutexrep)); /*On détruit le mutex de lazone réponse*/
+    pthread_cond_destroy(&(my_zone_reponse->var_cond_rep)); /*On détruit la var.cond. de la zone réponse*/
+
     free(my_zone_reponse); /*On libère la mémoire de la zone réponse*/
     my_zone_reponse = NULL; /*Pour être sur de pas y retourner*/
     return coderet; /*On retourne directement le code retour*/
@@ -328,7 +352,9 @@ int finMsg(int force)
         return -1;
     }
 
-    if ((my_zone_reponse = calloc(1, sizeof(repZone)))==NULL) return -3; /*On créé la zone réponse de cette session*/ /*TODO : gérer les erreurs*/
+    if ((my_zone_reponse = calloc(1, sizeof(repZone)))==NULL) return -3; /*On créé la zone réponse de cette session*/
+    pthread_mutex_init( &(my_zone_reponse->mutexrep), NULL); /*On initialise le mutex*/
+    pthread_cond_init(&(my_zone_reponse->var_cond_rep), NULL); /*On initilaise la var. cond.*/
 
 
     pthread_mutex_lock(&(_zoneRequete.mutexreq));
@@ -357,6 +383,9 @@ int finMsg(int force)
     coderet = my_zone_reponse->code_err; /*On récupère le code renseigné par le thread gestionnaire*/
 
     pthread_mutex_unlock(&(my_zone_reponse->mutexrep)); /*On libère le mutex de notre zone réponse*/
+
+    pthread_mutex_destroy(&(my_zone_reponse->mutexrep)); /*On détruit le mutex de lazone réponse*/
+    pthread_cond_destroy(&(my_zone_reponse->var_cond_rep)); /*On détruit la var.cond. de la zone réponse*/
     free(my_zone_reponse); /*On libère la zone réponse*/
     my_zone_reponse = NULL; /*Pour être sur de ne pas y retourner*/
 
