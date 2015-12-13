@@ -52,13 +52,15 @@ void* affichage (void *arg)
         while (_flagsusp == 1){
             sleep(2);
         }
-        if (_flagstop && recvMsg(1, 666, NULL) == 0){
-            printf("Arrêt de la tâche de lecture\n");
+        if (_flagstop && recvMsg(1, 666, NULL) <= 0){
             desaboMsg(666);
+            printf("Arrêt de la tâche de lecture\n");
             pthread_exit(NULL);
         }
+        if (recvMsg(1, 666, NULL) != 0){ /*On est obligé de vérifier s'il y a des messages car on ne veut pas le caractère bloquant ici (en cas de _flagstop levé)*/
         recvMsg(0, 666, my_message);
         printf("%s\n",my_message);
+        }
 		sleep(1);				/*On attend un peu*/
 	}
 	pthread_exit(NULL);
@@ -108,6 +110,8 @@ int main (void)
 	pthread_join(idThreadEcriture, NULL);					/*On attend que les threads se terminent*/
 	pthread_join(idThreadAffichage, NULL);
 	pthread_join(idThreadSupervision, NULL);
+
+    finMsg(0);
 
 	printf("Fin main\n");
 

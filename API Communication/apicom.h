@@ -46,7 +46,7 @@ Retour :
 
 extern int recvMsg(int flag, int id, char * message);
 /**
-int recvMsg(int flag, int id, char ** message) : Permet à un thread d'identifiant API id de
+int recvMsg(int flag, int id, char * message) : Permet à un thread d'identifiant API id de
 consulter sa boite à lettres. Soit de lire le plus ancien message non lu (fonction bloquante si
 la boite à lettre est vide), soit de consulter le nombre de messages non lus.
 Arguments :
